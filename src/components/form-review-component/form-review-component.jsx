@@ -30,10 +30,10 @@ const FormReviewComponent = (props) => {
     <form action="#" className="add-review__form" onSubmit={handleSubmit}>
       <div className="rating">
         <div className="rating__stars">
-          {Rating.map((rating)=>{
-            return <React.Fragment key={`${rating}`}>
-              <input className="rating__input" id={`star-${rating}`} type="radio" name="rating" value={`${rating}`} checked={`${rating}` === selectedStar} onChange={handleSelectedStarsChange}/>
-              <label className="rating__label" htmlFor={`star-${rating}`}>Rating {`${rating}`}</label>
+          {Rating.map((starRating)=>{
+            return <React.Fragment key={`${starRating}`}>
+              <input className="rating__input" id={`star-${starRating}`} type="radio" name="rating" value={`${starRating}`} checked={`${starRating}` === selectedStar} onChange={handleSelectedStarsChange}/>
+              <label className="rating__label" htmlFor={`star-${starRating}`}>Rating {`${starRating}`}</label>
             </React.Fragment>;
           })}
 

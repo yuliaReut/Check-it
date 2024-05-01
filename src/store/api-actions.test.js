@@ -1,51 +1,51 @@
 import MockAdapter from 'axios-mock-adapter';
 import createAPI from '../api/api';
-import {ActionType, storeUserData} from '../store/actions';
-import {checkAuth, fetchFilmsList, login, getComments, postComment, fetchPromoFilm, fetchFavouriteList, postFavouriteFilm} from "./api-actions";
+import {ActionType} from '../store/actions';
+import {checkAuth, fetchFilmsList, login, getComments} from "./api-actions";
 import filmsData from "./films/films-reducer";
 import {AuthorizationStatus} from '../const';
 
 const api = createAPI(() => {});
-const Films = [
-  {
-    "id": 1,
-    "name": `Fantastic Beasts: The Crimes of Grindelwald`,
-    "posterImage": `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    "previewImage": `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    "backgroundImage": `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    "backgroundColor": `#ffffff`,
-    "videoLink": `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    "previewVideoLink": `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    "description": `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
-    "rating": 8.9,
-    "scoresCount": 240,
-    "director": `Wes Andreson`,
-    "starring": [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
-    "runTime": 99,
-    "genre": `Comedy`,
-    "released": 2014,
-    "isFavorite": false
-  },
-  {
-    "id": 2,
-    "name": `Bohemian Rhapsody`,
-    "posterImage": `img/bohemian-rhapsody.jpg`,
-    "previewImage": `img/bohemian-rhapsody.jpg`,
-    "backgroundImage": `img/bohemian-rhapsody.jpg`,
-    "backgroundColor": `#ffffff`,
-    "videoLink": `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    "previewVideoLink": `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    "description": `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
-    "rating": 8.9,
-    "scoresCount": 240,
-    "director": `Wes Andreson`,
-    "starring": [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
-    "runTime": 99,
-    "genre": `Crime`,
-    "released": 2014,
-    "isFavorite": false
-  }
-];
+// const Films = [
+//   {
+//     "id": 1,
+//     "name": `Fantastic Beasts: The Crimes of Grindelwald`,
+//     "posterImage": `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+//     "previewImage": `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+//     "backgroundImage": `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+//     "backgroundColor": `#ffffff`,
+//     "videoLink": `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+//     "previewVideoLink": `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+//     "description": `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
+//     "rating": 8.9,
+//     "scoresCount": 240,
+//     "director": `Wes Andreson`,
+//     "starring": [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
+//     "runTime": 99,
+//     "genre": `Comedy`,
+//     "released": 2014,
+//     "isFavorite": false
+//   },
+//   {
+//     "id": 2,
+//     "name": `Bohemian Rhapsody`,
+//     "posterImage": `img/bohemian-rhapsody.jpg`,
+//     "previewImage": `img/bohemian-rhapsody.jpg`,
+//     "backgroundImage": `img/bohemian-rhapsody.jpg`,
+//     "backgroundColor": `#ffffff`,
+//     "videoLink": `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+//     "previewVideoLink": `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+//     "description": `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.`,
+//     "rating": 8.9,
+//     "scoresCount": 240,
+//     "director": `Wes Andreson`,
+//     "starring": [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
+//     "runTime": 99,
+//     "genre": `Crime`,
+//     "released": 2014,
+//     "isFavorite": false
+//   }
+// ];
 
 describe(`Reducer shold work correctly`, ()=>{
   it(`Reducer without additional parameters should return initial state`, ()=>{
@@ -141,9 +141,9 @@ describe(`Async operation work correctly`, () => {
     const fakeUser = {email: `test@test.ru`, password: `123456`};
     const user = {
       "id": 1,
-      "email": "Oliver.conner@gmail.com",
-      "name": "Oliver.conner",
-      "avatar_url": "img/1.png"
+      "email": `Oliver.conner@gmail.com`,
+      "name": `Oliver.conner`,
+      "avatar_url": `img/1.png`,
     };
     const loginLoader = login(fakeUser);
 

@@ -10,7 +10,7 @@ const VideoComponent = (props) => {
       try {
         await videoRef.current.play();
       } catch (error) {
-        console.log('Error playing video:', error);
+        throw Error(`Error playing video:`, error);
       }
     };
 
