@@ -1,5 +1,5 @@
-import {ActionType} from "../actions";
-import {maxFilms} from "../../const";
+import {ActionType} from '../actions';
+import {maxFilms} from '../../const';
 import {createReducer} from '@reduxjs/toolkit';
 const initialState = {
   genre: `All genres`,
@@ -8,26 +8,26 @@ const initialState = {
   currentNumberFilms: maxFilms,
   isDataLoaded: false,
   film: null,
-  favouriteFilms: []
+  favouriteFilms: [],
 };
 const filmsData = createReducer(initialState, (builder) => {
   builder.addCase(ActionType.CHANGE_GENRE, (state, action) => {
     return {
       ...state,
       genre: action.genre,
-      currentNumberFilms: maxFilms
+      currentNumberFilms: maxFilms,
     };
   });
   builder.addCase(ActionType.GET_FILTERED_FILMS, (state, action) => {
     return {
       ...state,
-      films: state.genre === `All genres` ? state.allFilms : action.films
+      films: state.genre === `All genres` ? state.allFilms : action.films,
     };
   });
   builder.addCase(ActionType.GET_MAX_FILMS, (state, action) => {
     return {
       ...state,
-      currentNumberFilms: action.currentNumberFilms
+      currentNumberFilms: action.currentNumberFilms,
     };
   });
   builder.addCase(ActionType.GET_FILMS, (state, action) => {
@@ -35,7 +35,7 @@ const filmsData = createReducer(initialState, (builder) => {
       ...state,
       films: action.films,
       allFilms: action.films,
-      isDataLoaded: true
+      isDataLoaded: true,
     };
   });
   builder.addCase(ActionType.GET_PROMO_FILM, (state, action) => {

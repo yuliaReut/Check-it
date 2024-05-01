@@ -1,5 +1,5 @@
-import React, {useEffect, useRef} from "react";
-import PropTypes from "prop-types";
+import React, {useEffect, useRef} from 'react';
+import PropTypes from 'prop-types';
 
 const VideoComponent = (props) => {
   const {previewVideoLink, previewImage, width = `271`, height = `175`, isPlaying} = props;
@@ -33,9 +33,19 @@ const VideoComponent = (props) => {
     };
   }, [isPlaying]);
 
-  return <React.Fragment>
-    <video ref={videoRef} src={previewVideoLink} className="player__video" poster={previewImage} muted width={width} height={height}></video>
-  </React.Fragment>;
+  return (
+    <React.Fragment>
+      <video
+        ref={videoRef}
+        src={previewVideoLink}
+        className="player__video"
+        poster={previewImage}
+        muted
+        width={width}
+        height={height}
+      ></video>
+    </React.Fragment>
+  );
 };
 
 VideoComponent.propTypes = {

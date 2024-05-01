@@ -1,27 +1,32 @@
-import {AuthorizationStatus} from "../const";
-import {postComment as postComments, storeUserData, requireAuthorization, getComments as storeComments, getPromoFilm, loadFilms, getFavouriteList} from "./actions";
-import {adaptDataToFilms} from "../adapter/adapter";
+import {AuthorizationStatus} from '../const';
+import {
+  postComment as postComments,
+  storeUserData,
+  requireAuthorization,
+  getComments as storeComments,
+  getPromoFilm,
+  loadFilms,
+  getFavouriteList,
+} from './actions';
+import {adaptDataToFilms} from '../adapter/adapter';
 
-const fetchFilmsList = ()=>(dispatch, _getState, api)=>(
-  api.get(`/films`).then((data)=> {
+const fetchFilmsList = () => (dispatch, _getState, api) =>
+  api.get(`/films`).then((data) => {
     const adaptedData = adaptDataToFilms(data.data);
     dispatch(loadFilms(adaptedData));
-  })
-);
+  });
 
-const fetchPromoFilm = ()=>(dispatch, _getState, api)=>(
-  api.get(`/films/promo`).then((data)=> {
+const fetchPromoFilm = () => (dispatch, _getState, api) =>
+  api.get(`/films/promo`).then((data) => {
     const adaptedData = adaptDataToFilms(data.data);
     dispatch(getPromoFilm(adaptedData));
-  })
-);
+  });
 
-const fetchFavouriteList = ()=>(dispatch, _getState, api)=>(
-  api.get(`/favorite`).then((data)=> {
+const fetchFavouriteList = () => (dispatch, _getState, api) =>
+  api.get(`/favorite`).then((data) => {
     const adaptedData = adaptDataToFilms(data.data);
     dispatch(getFavouriteList(adaptedData));
-  })
-);
+  });
 
 const postFavouriteFilm = (filmId) => (dispatch, getState, api) => {
   const state = getState();
@@ -49,38 +54,54 @@ const postFavouriteFilm = (filmId) => (dispatch, getState, api) => {
   }
 };
 
+const login =
+  ({login: email, password}) =>
+    (dispatch, _getState, api) =>
+      api
+      .post(`/login`, {email, password})
+      .then(({data}) => {
+        dispatch(
+            storeUserData({
+              ...data,
+              id: data.id,
+              email: data[`email`],
+              name: data[`name`],
+              avatarUrl: data[`avatar_url`],
+            })
+        );
+        // dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+      })
+      .catch((err) => err);
+const checkAuth = () => (dispatch, _getState, api) =>
+  api
+    .get(`/login`)
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .catch((err) => err);
 
-const login = ({login: email, password}) => (dispatch, _getState, api) => (
-  api.post(`/login`, {email, password}).then(({data}) =>{
-    dispatch(storeUserData({
-      ...data,
-      id: data.id,
-      email: data[`email`],
-      name: data[`name`],
-      avatarUrl: data[`avatar_url`]
-    }));
-    // dispatch(requireAuthorization(AuthorizationStatus.AUTH));
-  })
-  .catch((err) => err)
-);
-const checkAuth = () => (dispatch, _getState, api) => (
-  api.get(`/login`).then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
-  .catch((err) => err)
-);
+const getComments = (id) => (dispatch, _getState, api) =>
+  api
+    .get(`/comments/${id}`)
+    .then(({data}) => {
+      dispatch(storeComments(data));
+    })
+    .catch((err) => err);
 
-
-const getComments = (id) => (dispatch, _getState, api) => (
-  api.get(`/comments/${id}`).then(({data}) =>{
-    dispatch(storeComments(data));
-  })
-  .catch((err) => err)
-);
-
-const postComment = (id, {rating, comment}) => (dispatch, _getState, api) => (
-  api.post(`/comments/${id}`, {rating, comment}).then(({data}) =>{
-    dispatch(postComments(data));
-  })
-  .catch((err) => err)
-);
-export {checkAuth, fetchFilmsList, login, getComments, postComment, fetchPromoFilm, fetchFavouriteList, postFavouriteFilm};
-
+const postComment =
+  (id, {rating, comment}) =>
+    (dispatch, _getState, api) =>
+      api
+        .post(`/comments/${id}`, {rating, comment})
+        .then(({data}) => {
+          dispatch(postComments(data));
+        })
+        .catch((err) => err);
+export {
+  checkAuth,
+  fetchFilmsList,
+  login,
+  getComments,
+  postComment,
+  fetchPromoFilm,
+  fetchFavouriteList,
+  postFavouriteFilm,
+};

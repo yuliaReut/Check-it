@@ -23,4 +23,3 @@ function getActiveGenre(evt) {
   return filterValue;
 }
 export {getUniqueGenreList, getActiveGenre, filterFilms};
-

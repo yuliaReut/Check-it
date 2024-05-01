@@ -17,7 +17,7 @@ const adaptFilm = (film) => {
     previewVideoLink: film.preview_video_link,
     runTime: film.run_time,
     scoresCount: film.scores_count,
-    videoLink: film.video_link
+    videoLink: film.video_link,
   };
 
   delete adaptedFilm.preview_image;

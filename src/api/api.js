@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 
 const BACKEND_URL = `https://6.react.htmlacademy.pro/wtw`;
 const REQUEST_TIMEOUT = 5000;
 const HttpCode = {
-  UNAUTHORIZED: 401
+  UNAUTHORIZED: 401,
 };
 const createAPI = (onUnauthorized) => {
   const api = axios.create({

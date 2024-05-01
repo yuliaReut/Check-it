@@ -19,11 +19,11 @@ const AppComponent = () => {
       <Route path={AppRoute.ROOT} element={<MainComponent />} />
       <Route path="/login" element={<SignInComponent />} />
       {/* <PrivateRoute path='/mylist' element={<MyListComponent films={favouriteFilms} />} /> */}
-      <Route path='/mylist' element={<MyListComponent films={favouriteFilms} />} />
+      <Route path="/mylist" element={<MyListComponent films={favouriteFilms} />} />
 
       <Route path="/films/:id?" element={<FilmComponent films={films} />} />
       {/* <PrivateRoute path='/films/:id?/review' element={<AddReviewComponent films={films} />} /> */}
-      <Route path='/films/:id?/review' element={<AddReviewComponent films={films} />} />
+      <Route path="/films/:id?/review" element={<AddReviewComponent films={films} />} />
 
       <Route path="/player/:id?" element={<PlayerComponent films={films} />} />
       <Route path="*" element={<NonexistentPageComponent />} />

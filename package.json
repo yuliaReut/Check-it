@@ -10,7 +10,7 @@
     "test": "npm run eslint && npm run test.jest && npm run format:check",
     "test.jest": "jest",
     "format:check": "prettier --check .",
-    "lint": "npm run eslint && npm run format:check"
+    "lint": "npm run eslint && npm run format:check --max-warnings"
   },
   "jest": {
     "moduleNameMapper": {

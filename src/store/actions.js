@@ -10,42 +10,42 @@ const ActionType = {
   POST_COMMENT: `POST_COMMENT`,
   GET_PROMO_FILM: `GET_PROMO_FILM`,
   GET_FAVOURITE_LIST: `GET_FAVOURITE_LIST`,
-  ADD_FAVOURITE_FILM: `ADD_FAVOURITE_FILM`
+  ADD_FAVOURITE_FILM: `ADD_FAVOURITE_FILM`,
 };
 
 const changeGenre = (genre) => ({
   type: ActionType.CHANGE_GENRE,
-  genre
+  genre,
 });
 
 const getPromoFilm = (film) => ({
   type: ActionType.GET_PROMO_FILM,
-  film
+  film,
 });
 
 const getFilteredFilms = (films) => ({
   type: ActionType.GET_FILTERED_FILMS,
-  films
+  films,
 });
 
 const getMaxFilms = (number) => ({
   type: ActionType.GET_MAX_FILMS,
-  currentNumberFilms: number
+  currentNumberFilms: number,
 });
 
-const loadFilms = (films)=> ({
+const loadFilms = (films) => ({
   type: ActionType.GET_FILMS,
-  films
+  films,
 });
 
-const requireAuthorization = (status)=>({
+const requireAuthorization = (status) => ({
   type: ActionType.REQUIRED_AUTHORIZATION,
-  status
+  status,
 });
 
-const storeUserData = (user)=>({
+const storeUserData = (user) => ({
   type: ActionType.STORE_USER_DATA,
-  user
+  user,
 });
 
 const redirectToRoute = (url) => ({
@@ -53,24 +53,38 @@ const redirectToRoute = (url) => ({
   payload: url,
 });
 
-const getComments = (comments)=>({
+const getComments = (comments) => ({
   type: ActionType.STORE_COMMENTS,
-  comments
+  comments,
 });
 
-const getFavouriteList = (favouriteFilms)=>({
+const getFavouriteList = (favouriteFilms) => ({
   type: ActionType.GET_FAVOURITE_LIST,
-  favouriteFilms
+  favouriteFilms,
 });
 
-const addFavouriteFilm = (id)=>({
+const addFavouriteFilm = (id) => ({
   type: ActionType.ADD_FAVOURITE_FILM,
-  id
+  id,
 });
 
-const postComment = (comment)=>({
+const postComment = (comment) => ({
   type: ActionType.POST_COMMENT,
-  comment
+  comment,
 });
 
-export {changeGenre, postComment, getComments, redirectToRoute, storeUserData, requireAuthorization, getFilteredFilms, loadFilms, getMaxFilms, getPromoFilm, getFavouriteList, addFavouriteFilm, ActionType};
+export {
+  changeGenre,
+  postComment,
+  getComments,
+  redirectToRoute,
+  storeUserData,
+  requireAuthorization,
+  getFilteredFilms,
+  loadFilms,
+  getMaxFilms,
+  getPromoFilm,
+  getFavouriteList,
+  addFavouriteFilm,
+  ActionType,
+};

@@ -1,10 +1,10 @@
-import {ActionType} from "../actions";
-import {AuthorizationStatus} from "../../const";
+import {ActionType} from '../actions';
+import {AuthorizationStatus} from '../../const';
 import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {
   status: AuthorizationStatus.NO_AUTH,
-  user: null
+  user: null,
 };
 
 const userData = createReducer(initialState, (builder) => {
@@ -18,7 +18,7 @@ const userData = createReducer(initialState, (builder) => {
   builder.addCase(ActionType.STORE_USER_DATA, (state, action) => {
     return {
       ...state,
-      user: action.user
+      user: action.user,
     };
   });
 });

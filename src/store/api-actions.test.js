@@ -1,8 +1,8 @@
 import MockAdapter from 'axios-mock-adapter';
 import createAPI from '../api/api';
 import {ActionType} from '../store/actions';
-import {checkAuth, fetchFilmsList, login, getComments} from "./api-actions";
-import filmsData from "./films/films-reducer";
+import {checkAuth, fetchFilmsList, login, getComments} from './api-actions';
+import filmsData from './films/films-reducer';
 import {AuthorizationStatus} from '../const';
 
 const api = createAPI(() => {});
@@ -47,8 +47,8 @@ const api = createAPI(() => {});
 //   }
 // ];
 
-describe(`Reducer shold work correctly`, ()=>{
-  it(`Reducer without additional parameters should return initial state`, ()=>{
+describe(`Reducer shold work correctly`, () => {
+  it(`Reducer without additional parameters should return initial state`, () => {
     expect(filmsData(undefined, {})).toEqual({
       genre: `All genres`,
       films: [],
@@ -56,11 +56,11 @@ describe(`Reducer shold work correctly`, ()=>{
       currentNumberFilms: 8,
       isDataLoaded: false,
       film: null,
-      favouriteFilms: []
+      favouriteFilms: [],
     });
   });
 
-  it(`Reducer without additional parameters should return initial state`, ()=>{
+  it(`Reducer without additional parameters should return initial state`, () => {
     expect(filmsData(undefined, {})).toEqual({
       genre: `All genres`,
       films: [],
@@ -68,11 +68,11 @@ describe(`Reducer shold work correctly`, ()=>{
       currentNumberFilms: 8,
       isDataLoaded: false,
       film: null,
-      favouriteFilms: []
+      favouriteFilms: [],
     });
   });
 
-  it(`Reducer should return loaded films`, ()=>{
+  it(`Reducer should return loaded films`, () => {
     const state = {
       genre: `All genres`,
       films: [],
@@ -80,12 +80,12 @@ describe(`Reducer shold work correctly`, ()=>{
       currentNumberFilms: 8,
       isDataLoaded: false,
       film: null,
-      favouriteFilms: []
+      favouriteFilms: [],
     };
 
-    const loadFilms = (films)=> ({
+    const loadFilms = (films) => ({
       type: ActionType.GET_FILMS,
-      films
+      films,
     });
 
     expect(filmsData(state, loadFilms([]))).toEqual({
@@ -95,7 +95,7 @@ describe(`Reducer shold work correctly`, ()=>{
       currentNumberFilms: 8,
       isDataLoaded: true,
       film: null,
-      favouriteFilms: []
+      favouriteFilms: [],
     });
   });
 });
@@ -108,14 +108,13 @@ describe(`Async operation work correctly`, () => {
 
     apiMock.onGet(`/films`).reply(200, [{fake: true}]);
 
-    return filmsLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.GET_FILMS,
-          films: [{fake: true}],
-        });
+    return filmsLoader(dispatch, () => {}, api).then(() => {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.GET_FILMS,
+        films: [{fake: true}],
       });
+    });
   });
 
   it(`Should make a correct API call to /login`, () => {
@@ -125,14 +124,13 @@ describe(`Async operation work correctly`, () => {
 
     apiMock.onGet(`/login`).reply(200, [{fake: true}]);
 
-    return checkAuthLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.REQUIRED_AUTHORIZATION,
-          status: AuthorizationStatus.AUTH,
-        });
+    return checkAuthLoader(dispatch, () => {}, api).then(() => {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.REQUIRED_AUTHORIZATION,
+        status: AuthorizationStatus.AUTH,
       });
+    });
   });
 
   it(`Should make a correct API call to /login pos`, () => {
@@ -161,8 +159,8 @@ describe(`Async operation work correctly`, () => {
         type: ActionType.STORE_USER_DATA,
         user: {
           ...user,
-          avatarUrl: user.avatar_url // изменить на avatarUrl: user.avatar_url
-        }
+          avatarUrl: user.avatar_url, // изменить на avatarUrl: user.avatar_url
+        },
       });
     });
   });
@@ -170,16 +168,18 @@ describe(`Async operation work correctly`, () => {
   it(`Should make a correct API call to /comments/9`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const Comments = [{
-      "id": 1,
-      "user": {
-        "id": 4,
-        "name": `Kate Muir`
+    const Comments = [
+      {
+        id: 1,
+        user: {
+          id: 4,
+          name: `Kate Muir`,
+        },
+        rating: 8.9,
+        comment: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        date: `2019-05-08T14:13:56.569Z`,
       },
-      "rating": 8.9,
-      "comment": `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
-      "date": `2019-05-08T14:13:56.569Z`
-    }];
+    ];
     const commentsLoader = getComments(9);
 
     apiMock.onGet(`/comments/9`).reply(200, Comments);
@@ -189,9 +189,8 @@ describe(`Async operation work correctly`, () => {
 
       expect(dispatch).toHaveBeenNthCalledWith(1, {
         type: ActionType.STORE_COMMENTS,
-        comments: Comments
+        comments: Comments,
       });
     });
-
   });
 });

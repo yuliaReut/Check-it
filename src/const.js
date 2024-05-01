@@ -1,5 +1,5 @@
 const AppRoute = {
-  ROOT: `/`
+  ROOT: `/`,
 };
 const Genres = {
   all: `All genres`,
@@ -11,7 +11,7 @@ const Genres = {
   kidsFamily: `Kids & Family`,
   romance: `Romance`,
   sciFi: `Sci-Fi`,
-  thriller: `Thrillers`
+  thriller: `Thrillers`,
 };
 const AuthorizationStatus = {
   AUTH: `AUTH`,

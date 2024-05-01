@@ -1,8 +1,8 @@
-import React, {useState} from "react";
-import {PropTypes} from "prop-types";
-import {Link} from "react-router-dom";
-import FilmProp from "../../props/film.prop";
-import VideoComponent from "../video-component/video-component";
+import React, {useState} from 'react';
+import {PropTypes} from 'prop-types';
+import {Link} from 'react-router-dom';
+import FilmProp from '../../props/film.prop';
+import VideoComponent from '../video-component/video-component';
 function CardComponent(props) {
   const {film, onMouseEnter, onMouseLeave} = props;
   const {name, previewImage, id, previewVideoLink} = film;
@@ -13,19 +13,31 @@ function CardComponent(props) {
     setIsActive(true);
     onMouseEnter(film);
   };
-  const handleMouseLeave = ()=>{
+  const handleMouseLeave = () => {
     setIsPlaying(false);
     setIsActive(false);
     onMouseLeave();
   };
 
   return (
-    <article className={`small-movie-card catalog__movies-card ${isActive ? `active` : ``}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <article
+      className={`small-movie-card catalog__movies-card ${isActive ? `active` : ``}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="small-movie-card__image">
-        <VideoComponent previewVideoLink={previewVideoLink} className="player__video" previewImage={previewImage} isActive={isActive} isPlaying={isPlaying}></VideoComponent>
+        <VideoComponent
+          previewVideoLink={previewVideoLink}
+          className="player__video"
+          previewImage={previewImage}
+          isActive={isActive}
+          isPlaying={isPlaying}
+        ></VideoComponent>
       </div>
       <h3 className="small-movie-card__title">
-        <Link to={`films/${id}`} className="small-movie-card__link">{name}</Link>
+        <Link to={`films/${id}`} className="small-movie-card__link">
+          {name}
+        </Link>
       </h3>
     </article>
   );
