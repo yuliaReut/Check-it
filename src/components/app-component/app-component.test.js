@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import {Router} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import * as redux from 'react-redux';
 import configureStore from 'redux-mock-store';
@@ -33,11 +33,11 @@ describe(`Test routing`, () => {
   it(`Render 'Main component' when user navigate to '/'`, ()=>{
     const history = createMemoryHistory();
     render(
-      <redux.Provider store={store}>
-        <Router history={history}>
-          <AppComponent></AppComponent>
-        </Router>
-      </redux.Provider>
+        <redux.Provider store={store}>
+          <BrowserRouter history={history}>
+            <AppComponent></AppComponent>
+          </BrowserRouter>
+        </redux.Provider>
     );
 
     expect(screen.getByText(/Sign in/i)).toBeInTheDocument();
@@ -46,11 +46,11 @@ describe(`Test routing`, () => {
     const history = createMemoryHistory();
     history.push(`/login`);
     render(
-      <redux.Provider store={mockStore({})}>
-        <Router history={history}>
-          <AppComponent></AppComponent>
-        </Router>
-      </redux.Provider>
+        <redux.Provider store={mockStore({})}>
+          <BrowserRouter history={history}>
+            <AppComponent></AppComponent>
+          </BrowserRouter>
+        </redux.Provider>
     );
 
     expect(screen.getByText(/Login in/i)).toBeInTheDocument();

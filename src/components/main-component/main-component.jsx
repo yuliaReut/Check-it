@@ -8,7 +8,7 @@ import HeadGuestComponent from "../head-guest-component/head-guest-component";
 import {AuthorizationStatus} from "../../const";
 import {useSelector, useDispatch} from 'react-redux';
 import PlayButtonComponent from "../play-button/play-button";
-import {Link} from "react-router-dom/cjs/react-router-dom.min";
+import {Link} from "react-router-dom";
 import FavouriteListComponent from "../favourite-films/favourite-films";
 
 const MainComponent = () => {

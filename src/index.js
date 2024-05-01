@@ -1,19 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import AppComponent from "./components/app-component/app-component";
-// import {composeWithDevTools} from 'redux-devtools-extension';
-// import {createStore, applyMiddleware} from "redux";
-import {Provider} from "react-redux";
-// import thunk from "redux-thunk";
-import {reducer} from "./store/reducer";
+import { Provider } from "react-redux";
+import { reducer } from "./store/reducer";
 import createAPI from "./api/api";
-import {requireAuthorization} from "./store/actions";
-import {checkAuth} from "./store/api-actions";
-import {AuthorizationStatus} from "./const";
-import {redirect} from "./store/redirect";
-import {configureStore} from '@reduxjs/toolkit';
-import {Router as BrowserRouter} from 'react-router-dom';
-import browserHistory from "./browser-history";
+import { requireAuthorization } from "./store/actions";
+import { checkAuth } from "./store/api-actions";
+import { AuthorizationStatus } from "./const";
+import { redirect } from "./store/redirect";
+import { configureStore } from '@reduxjs/toolkit';
+import { BrowserRouter } from 'react-router-dom';
+
 const api = createAPI(() => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)));
 
 const store = configureStore({
@@ -23,16 +20,17 @@ const store = configureStore({
       thunk: {
         extraArgument: api
       },
-
     }).concat(redirect)
 });
 
 store.dispatch(checkAuth());
-ReactDOM.render(
-  <Provider store = {store} >
-    <BrowserRouter history = {browserHistory} >
-      <AppComponent/>
+
+const root = ReactDOM.createRoot(document.getElementById(`root`));
+root.render(
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppComponent />
+      </Provider>
     </BrowserRouter>
-  </Provider>,
-  document.querySelector(`#root`)
 );
+
