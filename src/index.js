@@ -26,10 +26,9 @@ const store = configureStore({
 store.dispatch(checkAuth());
 
 const root = ReactDOM.createRoot(document.getElementById(`root`));
-root.render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <AppComponent />
-      </Provider>
-    </BrowserRouter>
+root.render(<BrowserRouter>
+  <Provider store={store}>
+    <AppComponent />
+  </Provider>
+</BrowserRouter>
 );

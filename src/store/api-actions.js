@@ -55,19 +55,17 @@ const postFavouriteFilm = (filmId) => (dispatch, getState, api) => {
 };
 
 const login =
-  ({login: email, password}) =>
-    (dispatch, _getState, api) =>
-      api
+  ({login: email, password}) => (dispatch, _getState, api) =>
+    api
       .post(`/login`, {email, password})
       .then(({data}) => {
-        dispatch(
-            storeUserData({
-              ...data,
-              id: data.id,
-              email: data[`email`],
-              name: data[`name`],
-              avatarUrl: data[`avatar_url`],
-            })
+        dispatch(storeUserData({
+          ...data,
+          id: data.id,
+          email: data[`email`],
+          name: data[`name`],
+          avatarUrl: data[`avatar_url`],
+        }),
         );
         // dispatch(requireAuthorization(AuthorizationStatus.AUTH));
       })
@@ -87,14 +85,13 @@ const getComments = (id) => (dispatch, _getState, api) =>
     .catch((err) => err);
 
 const postComment =
-  (id, {rating, comment}) =>
-    (dispatch, _getState, api) =>
-      api
-        .post(`/comments/${id}`, {rating, comment})
-        .then(({data}) => {
-          dispatch(postComments(data));
-        })
-        .catch((err) => err);
+  (id, {rating, comment}) => (dispatch, _getState, api) =>
+    api
+      .post(`/comments/${id}`, {rating, comment})
+      .then(({data}) => {
+        dispatch(postComments(data));
+      })
+      .catch((err) => err);
 export {
   checkAuth,
   fetchFilmsList,

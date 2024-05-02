@@ -13,12 +13,11 @@ it(`Render "SignInComponent" when user navigate to "/login" url`, () => {
   const history = createMemoryHistory();
   history.push(`/login`);
 
-  render(
-      <redux.Provider store={mockStore({})}>
-        <Router history={history}>
-          <SignInComponent></SignInComponent>
-        </Router>
-      </redux.Provider>
+  render(<redux.Provider store={mockStore({})}>
+    <Router history={history}>
+      <SignInComponent></SignInComponent>
+    </Router>
+  </redux.Provider>,
   );
 
   expect(screen.getByText(`Password`)).toBeInTheDocument();

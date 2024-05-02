@@ -138,10 +138,10 @@ describe(`Async operation work correctly`, () => {
     const dispatch = jest.fn();
     const fakeUser = {email: `test@test.ru`, password: `123456`};
     const user = {
-      "id": 1,
-      "email": `Oliver.conner@gmail.com`,
-      "name": `Oliver.conner`,
-      "avatar_url": `img/1.png`,
+      id: 1,
+      email: `Oliver.conner@gmail.com`,
+      name: `Oliver.conner`,
+      // avatar_url: `img/1.png`,
     };
     const loginLoader = login(fakeUser);
 

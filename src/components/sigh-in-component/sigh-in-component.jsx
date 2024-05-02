@@ -9,11 +9,10 @@ const SighInComponent = () => {
   const dispatch = useDispatch();
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    dispatch(
-        login({
-          login: emailRef.current.value,
-          password: passwordRef.current.value,
-        })
+    dispatch(login({
+      login: emailRef.current.value,
+      password: passwordRef.current.value,
+    }),
     );
     browserHistory.push(`/`);
   };

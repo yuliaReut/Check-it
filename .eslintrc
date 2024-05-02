@@ -22,7 +22,9 @@
     "quote-props": ["error", "as-needed", { "keywords": true }],
     "quotes": ["error", "single"],
     "no-mixed-requires": ["error"],
-    "indent": ["error", 2, { "SwitchCase": 1, "FunctionExpression": { "parameters": "first" } }],
-    "camelcase": ["error", { "properties": "never" }]
+    "indent": "off",
+    "camelcase": ["error", { "properties": "never" }],
+    "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
+    "react/jsx-curly-spacing": ["error", "never"]
   }
 }
