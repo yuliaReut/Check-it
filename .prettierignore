@@ -5,7 +5,7 @@ yarn.lock
 package.json
 package-lock.json
 coverage/
-src/index.js
+# src/index.js
 src/components/sigh-in-component/sigh-in-component.jsx
 src/components/sigh-in-component/sign-in-component.test.js
 src/components/app-component/app-component.test.js

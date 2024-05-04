@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BACKEND_URL = `https://6.react.htmlacademy.pro/wtw`;
+const BACKEND_URL = `https://kinopoiskapiunofficial.tech`;
 const REQUEST_TIMEOUT = 5000;
 const HttpCode = {
   UNAUTHORIZED: 401,

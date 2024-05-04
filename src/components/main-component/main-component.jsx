@@ -10,7 +10,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import PlayButtonComponent from '../play-button/play-button';
 import {Link} from 'react-router-dom';
 import FavouriteListComponent from '../favourite-films/favourite-films';
-
+import FooterComponent from '../footer-component/footer-component';
+import LogoComponent from '../logo-component/logo-component';
 const MainComponent = () => {
   const {films, currentNumberFilms, isDataLoaded, film} = useSelector((state) => state.FILMS);
   const {user, status} = useSelector((state) => state.USER);
@@ -36,16 +37,10 @@ const MainComponent = () => {
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
         </div>
 
-        <h1 className="visually-hidden">WTW</h1>
+        <h1 className="visually-hidden">Check_It</h1>
 
         <header className="page-header movie-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <LogoComponent></LogoComponent>
           <div className="user-block">
             {status === AuthorizationStatus.AUTH && user !== null ? (
               <>
@@ -97,19 +92,7 @@ const MainComponent = () => {
           <FilmsList films={films} maxFilms={currentNumberFilms}></FilmsList>
           <ShowMoreComponent></ShowMoreComponent>
         </section>
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <FooterComponent></FooterComponent>
       </div>
     </React.Fragment>
   );

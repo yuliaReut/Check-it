@@ -15,7 +15,7 @@
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react","prettier"
   ],
   "rules": {
     "semi": ["error", "always"],
@@ -24,7 +24,7 @@
     "no-mixed-requires": ["error"],
     "indent": "off",
     "camelcase": ["error", { "properties": "never" }],
-    "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
+    "prettier/prettier": "error",
     "react/jsx-curly-spacing": ["error", "never"]
   }
 }

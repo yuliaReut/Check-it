@@ -681,11 +681,11 @@ main {
 }
 
 .logo__link {
-  border: 1px solid rgba(223, 207, 119, 0.36);
+  border: 1px solid rgba(255, 255, 255, 0.36);
   border-radius: 8px;
   width: 93px;
   height: 54px;
-  color: #d9cd8d;
+  color: rgba(255, 255, 255, 0.36);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -707,18 +707,18 @@ main {
 }
 .logo__link[href]:hover,
 .logo__link[href]:focus {
-  border-color: rgba(84, 80, 62, 0.36);
-  color: #54503e;
+  border-color: rgba(7, 37, 71, 0.36);
+  color: #33f5ff;
 }
 .logo__link--light {
-  border: 1px solid rgba(84, 80, 62, 0.36);
+  border: 1px solid rgba(255, 255, 255, 0.36);
   margin: 0 auto 24px;
-  color: #54503e;
+  color: #ffffff;
 }
 .logo__link--light[href]:hover,
 .logo__link--light[href]:focus {
-  border-color: rgba(223, 207, 119, 0.36);
-  color: #d9cd8d;
+  border-color: rgba(255, 255, 255, 0.36);
+  color: rgba(255, 255, 255, 0.36);
 }
 
 .logo__letter {
@@ -1084,7 +1084,10 @@ main {
   margin-left: auto;
   margin-right: auto;
 }
-
+.non-page {
+  margin: auto;
+  display: block;
+}
 .player {
   position: fixed;
   z-index: 9999;

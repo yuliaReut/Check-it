@@ -10,25 +10,27 @@ import {AuthorizationStatus} from './const';
 import {redirect} from './store/redirect';
 import {configureStore} from '@reduxjs/toolkit';
 import {BrowserRouter} from 'react-router-dom';
-
-const api = createAPI(() => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)));
+import {kinopoiskApi} from '../src/api/kinopoisk-api';
+// const api = createAPI(() => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)));
 
 const store = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      thunk: {
-        extraArgument: api,
-      },
-    }).concat(redirect),
+    getDefaultMiddleware().concat(kinopoiskApi.middleware),
+    //   {
+    //   thunk: {
+    //     extraArgument: api,
+    //   },
+    // }
 });
 
-store.dispatch(checkAuth());
+//store.dispatch(checkAuth());
 
 const root = ReactDOM.createRoot(document.getElementById(`root`));
-root.render(<BrowserRouter>
-  <Provider store={store}>
-    <AppComponent />
-  </Provider>
-</BrowserRouter>
+root.render(
+  <BrowserRouter>
+    <Provider store={store}>
+      <AppComponent />
+    </Provider>
+  </BrowserRouter>,
 );
