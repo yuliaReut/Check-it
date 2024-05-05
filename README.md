@@ -3,7 +3,8 @@
 <img src="https://github.com/yuliaReut/Check-it/actions/workflows/check.yml/badge.svg" alt="sign of workflow state">
 =======
 
-Deploy:https://yuliareut.github.io/Check-it/
+Deploy: https://yuliareut.github.io/Check-it/
+API: https://kinopoiskapiunofficial.tech/documentation/api/
 ### Что сделано
 - [x] Написаны функциональные компоненты c хуками.
 - [x] Реализован рендеринг списков на основе запроса на сервер с использованием API- kinopoiskApi.
@@ -23,4 +24,4 @@ Deploy:https://yuliareut.github.io/Check-it/
 
 2 уровень (необязательный):
 - [x] Настроен CI/CD.
->>>>>>> master
+>>>>>>> main
