@@ -1,5 +1,5 @@
 {
-  "name": "check-it-out",
+  "name": "check-it",
   "homepage": "https://yuliareut.github.io/Check-it" ,
   "version": "1.0.0",
   "type": "module",
@@ -14,7 +14,7 @@
     "format:check": "prettier --write .",
     "lint": "npm run eslint && npm run format:check",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist -b main"
   },
   "jest": {
     "moduleNameMapper": {
