@@ -14,7 +14,7 @@
     "format:check": "prettier --write .",
     "lint": "npm run eslint && npm run format:check",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist -b main"
+    "deploy": "gh-pages -d build"
   },
   "jest": {
     "moduleNameMapper": {
