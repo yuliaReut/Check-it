@@ -1,5 +1,6 @@
 {
   "name": "check-it-out",
+  "homepage": "https://yuliaReut.github.io/Check-it" ,
   "version": "1.0.0",
   "type": "module",
   "private": true,
@@ -11,7 +12,9 @@
     "test": "npm run eslint && npm run test.jest && npm run format:check",
     "test.jest": "jest",
     "format:check": "prettier --write .",
-    "lint": "npm run eslint && npm run format:check"
+    "lint": "npm run eslint && npm run format:check",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "jest": {
     "moduleNameMapper": {
@@ -51,7 +54,8 @@
     "webpack-dev-server": "^3.11.2",
     "eslint-config-prettier":"",
     "eslint-plugin-prettier":"",
-    "typescript-eslint": "^7.7.1"
+    "typescript-eslint": "^7.7.1",
+    "gh-pages": "^6.1.1"
   },
   "engines": {
     "node": ">=16.0.0"
