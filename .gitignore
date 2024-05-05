@@ -1,6 +1,4 @@
 # Файлы и папки операционной системы
-.DS_Store
-Thumbs.db
 
 # Файлы редактора
 .idea
@@ -11,7 +9,7 @@ Thumbs.db
 *.log*
 
 public
-mocks
+ssr/mocks
 markup
 public/bundle.js
 public/bundle.js.map
