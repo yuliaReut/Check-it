@@ -1,5 +1,5 @@
 const AppRoute = {
-  ROOT: `/`,
+  ROOT: `/Check-it/`,
 };
 const Genres = {
   all: `All genres`,

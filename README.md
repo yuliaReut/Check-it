@@ -2,7 +2,7 @@
 # Check-it
 <img src="https://github.com/yuliaReut/Check-it/actions/workflows/check.yml/badge.svg" alt="sign of workflow state">
 =======
-<img src="https://github.com/yuliaReut/Check-it/actions/workflows/check.yml/badge.svg" alt="sign of workflow state">
+
 Deploy:https://yuliareut.github.io/Check-it/
 ### Что сделано
 - [x] Написаны функциональные компоненты c хуками.

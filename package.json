@@ -13,7 +13,8 @@
     "test.jest": "jest",
     "format:check": "prettier --write .",
     "lint": "npm run eslint && npm run format:check",
-    "predeploy": "npm run build",
+
+    "predeploy": "npm run build && replace-in-file ./build/index.html 'css/main.min.css' '/Check-it/css/main.min.css'",
     "deploy": "gh-pages -d build"
   },
   "jest": {
@@ -68,7 +69,8 @@
     "eslint-config-prettier":"",
     "eslint-plugin-prettier":"",
     "typescript-eslint": "^7.7.1",
-    "gh-pages": "^6.1.1"
+    "gh-pages": "^6.1.1",
+    "replace-in-file":""
   },
   "engines": {
     "node": ">=16.0.0"
