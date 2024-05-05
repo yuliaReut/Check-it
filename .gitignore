@@ -7,9 +7,9 @@
 
 # Вспомогательные файлы
 *.log*
-
+.editorconfig
 public
-ssr/mocks
+src/mocks
 markup
 public/bundle.js
 public/bundle.js.map
