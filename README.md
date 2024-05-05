@@ -3,7 +3,7 @@
 <img src="https://github.com/yuliaReut/Check-it/actions/workflows/check.yml/badge.svg" alt="sign of workflow state">
 =======
 <img src="https://github.com/yuliaReut/Check-it/actions/workflows/check.yml/badge.svg" alt="sign of workflow state">
-
+Deploy:https://yuliareut.github.io/Check-it/
 ### Что сделано
 - [x] Написаны функциональные компоненты c хуками.
 - [x] Реализован рендеринг списков на основе запроса на сервер с использованием API- kinopoiskApi.
