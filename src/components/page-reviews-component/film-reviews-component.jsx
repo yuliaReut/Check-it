@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {getComments} from '../../store/api-actions';
+// import {getComments} from '../../store/api-actions';
 import PropTypes from 'prop-types';
 const FilmReviewsComponent = (props) => {
   const {comments} = useSelector((state) => state.COMMENTS);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getComments(props.film.id));
-  }, [dispatch, props.film.id]);
+  // useEffect(() => {
+  //   dispatch(getComments(props.film.id));
+  // }, [dispatch, props.film.id]);
 
   return (
     <React.Fragment>

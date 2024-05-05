@@ -451,7 +451,7 @@ main {
   font-size: 22px;
   line-height: 26px;
   text-align: center;
-  color: #d9ca74;
+  color: #ffffff;
   cursor: pointer;
 }
 .catalog__button:hover {
@@ -1236,6 +1236,7 @@ main {
   position: relative;
   z-index: 1;
   height: 175px;
+  color: white;
 }
 .small-movie-card__image::after {
   content: '';

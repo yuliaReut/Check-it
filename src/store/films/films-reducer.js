@@ -2,13 +2,13 @@ import {ActionType} from '../actions';
 import {maxFilms} from '../../const';
 import {createReducer} from '@reduxjs/toolkit';
 const initialState = {
-  genre: `All genres`,
-  films: [],
-  allFilms: [],
+  // genre: `All genres`,
+  // films: [],
+  // allFilms: [],
   currentNumberFilms: maxFilms,
-  isDataLoaded: false,
-  film: null,
-  favouriteFilms: [],
+  isDataLoaded: true,
+  // film: null,
+  // favouriteFilms: [],
 };
 const filmsData = createReducer(initialState, (builder) => {
   builder.addCase(ActionType.CHANGE_GENRE, (state, action) => {
@@ -50,19 +50,6 @@ const filmsData = createReducer(initialState, (builder) => {
       favouriteFilms: action.favouriteFilms,
     };
   });
-  // builder.addCase(ActionType.ADD_FAVOURITE_FILM, (state, action) => {
-  //   return {
-  //     ...state,
-  //     films: state.films.map((film) => {
-  //       if (film.id === action.id) {
-  //         return {
-  //           ...film,
-  //           isFavorite: true
-  //         };
-  //       }
-  //       return film;
-  //     })
-  //   };
-  // });
+
 });
 export default filmsData;

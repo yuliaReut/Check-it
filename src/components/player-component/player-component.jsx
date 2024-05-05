@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import VideoComponent from '../video-component/video-component';
-import ExitButtonComponent from '../exit-button/exit-button';
+import VideoComponent from '../video-component/video-component.jsx';
+import ExitButtonComponent from '../exit-button/exit-button.jsx';
 
 import {useParams} from 'react-router-dom';
 import filmProp from '../../props/film.prop';
 const PlayerComponent = ({films}) => {
   const id = Number(useParams().id);
   const item = films.find((it) => it.id === id);
-  const {videoLink, backgroundImage} = item;
+ // const {videoLink, backgroundImage} = item;
   return (
     <React.Fragment>
       <div className="player">
         <VideoComponent
-          previewVideoLink={videoLink}
+          //previewVideoLink={videoLink}
           previewImage={backgroundImage}
           isPlaying={true}
         ></VideoComponent>

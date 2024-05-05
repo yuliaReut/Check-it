@@ -1,22 +1,22 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/api-actions';
+// import { login } from '../../store/api-actions';
 import browserHistory from '../../browser-history';
-import FooterComponent from '../footer-component/footer-component';
-import HeaderComponent from '../header-component/header-component';
+import FooterComponent from '../footer-component/footer-component.jsx';
+import HeaderComponent from '../header-component/header-component.jsx';
 const SighInComponent = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const dispatch = useDispatch();
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    dispatch(login({
-      login: emailRef.current.value,
-      password: passwordRef.current.value,
-    }),
-    );
-    browserHistory.push(`/`);
-  };
+  // const handleSubmit = (evt) => {
+  //   evt.preventDefault();
+  //   dispatch(login({
+  //     login: emailRef.current.value,
+  //     password: passwordRef.current.value,
+  //   }),
+  //   );
+  //   browserHistory.push(`/`);
+  // };
   return (
     <div className="user-page">
 <HeaderComponent text={'Log in'}></HeaderComponent>

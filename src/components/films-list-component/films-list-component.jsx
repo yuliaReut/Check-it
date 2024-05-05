@@ -35,7 +35,7 @@ const FilmsList = (props) => {
         {trimmedFilms.map((filmCard) => {
           return (
             <CardComponent
-              key={filmCard.id}
+              key={filmCard.filmId}
               film={filmCard}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}

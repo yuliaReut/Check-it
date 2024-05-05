@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CardComponent from '../card-component/film-card-component';
+import CardComponent from '../card-component/film-card-component.jsx';
 import FilmProp from '../../props/film.prop';
 import {useDispatch} from 'react-redux';
-import {fetchFavouriteList} from '../../store/api-actions';
-import LogoComponent from '../logo-component/logo-component';
-import FooterComponent from '../footer-component/footer-component';
+// import {fetchFavouriteList} from '../../store/api-actions';
+import LogoComponent from '../logo-component/logo-component.jsx';
+import FooterComponent from '../footer-component/footer-component.jsx';
 const MyListComponent = (props) => {
-  const dispatch = useDispatch();
-  dispatch(fetchFavouriteList());
+  // const dispatch = useDispatch();
+  // dispatch(fetchFavouriteList());
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -29,7 +29,7 @@ const MyListComponent = (props) => {
         <div className="catalog__movies-list">
           {props.films.map((filmCard) => (
             <CardComponent
-              key={filmCard.id}
+              key={filmCard.filmId}
               film={filmCard}
               onMouseEnter={() => {}}
               onMouseLeave={() => {}}

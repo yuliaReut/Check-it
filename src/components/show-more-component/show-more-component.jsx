@@ -2,9 +2,9 @@ import React from 'react';
 import {maxFilms} from '../../const';
 import {useDispatch, useSelector} from 'react-redux';
 import {getMaxFilms} from '../../store/actions';
-
-const ShowMoreComponent = () => {
-  const {films, currentNumberFilms, allFilms} = useSelector((state) => state.FILMS);
+import PropTypes from 'prop-types';
+const ShowMoreComponent = ({films}) => {
+  const {currentNumberFilms} = useSelector((state) => state.FILMS);
   const dispatch = useDispatch();
   let isMoreFilms = films.length > currentNumberFilms;
   const handleMoreFilms = () => {
@@ -29,5 +29,7 @@ const ShowMoreComponent = () => {
     <></>
   );
 };
-
+ShowMoreComponent.propTypes = {
+  films:PropTypes.array.isRequired,
+} ;
 export default ShowMoreComponent;

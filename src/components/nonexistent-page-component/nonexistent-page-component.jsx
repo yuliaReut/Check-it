@@ -1,8 +1,8 @@
 import React from 'react';
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
-import FooterComponent from '../footer-component/footer-component';
-import HeaderComponent from '../header-component/header-component';
+import FooterComponent from '../footer-component/footer-component.jsx';
+import HeaderComponent from '../header-component/header-component.jsx';
 const NonexistentPageComponent = () => {
   return (
     <div className="user-page">

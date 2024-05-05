@@ -5,7 +5,8 @@ import FilmProp from '../../props/film.prop';
 import VideoComponent from '../video-component/video-component';
 function CardComponent(props) {
   const {film, onMouseEnter, onMouseLeave} = props;
-  const {name, previewImage, id, previewVideoLink} = film;
+  const {nameRu, posterUrlPreview, filmId} = film;
+  console.log(filmId);
   let [isPlaying, setIsPlaying] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const handleMouseEnter = () => {
@@ -25,20 +26,24 @@ function CardComponent(props) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
+ <Link to={`films/${filmId}`} className="small-movie-card__image">
       <div className="small-movie-card__image">
-        <VideoComponent
-          previewVideoLink={previewVideoLink}
+
+             <VideoComponent
+          // previewVideoLink={previewVideoLink}
           className="player__video"
-          previewImage={previewImage}
+          previewImage={posterUrlPreview}
           isActive={isActive}
           isPlaying={isPlaying}
         ></VideoComponent>
+
       </div>
       <h3 className="small-movie-card__title">
-        <Link to={`films/${id}`} className="small-movie-card__link">
-          {name}
-        </Link>
+
+          {nameRu}
+
       </h3>
+      </Link>
     </article>
   );
 }

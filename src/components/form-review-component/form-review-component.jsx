@@ -3,7 +3,7 @@ import {useState} from 'react';
 import {useCallback} from 'react';
 import {PropTypes} from 'prop-types';
 
-import {postComment} from '../../store/api-actions';
+// import {postComment} from '../../store/api-actions';
 import browserHistory from '../../browser-history';
 import {useDispatch} from 'react-redux';
 const Rating = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -21,11 +21,11 @@ const FormReviewComponent = (props) => {
   }, []);
   const rating = Number(selectedStar);
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    dispatch(postComment(id, {rating, comment: commentText}));
-    browserHistory.push(`/films/${id}`);
-  };
+  // const handleSubmit = (evt) => {
+  //   evt.preventDefault();
+  //   dispatch(postComment(id, {rating, comment: commentText}));
+  //   browserHistory.push(`/films/${id}`);
+  // };
   return (
     <React.Fragment>
       <form action="#" className="add-review__form" onSubmit={handleSubmit}>

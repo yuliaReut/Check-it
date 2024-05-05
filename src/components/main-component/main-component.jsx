@@ -1,40 +1,48 @@
 import React, {useEffect} from 'react';
-import FilmsList from '../films-list-component/films-list-component';
-import ShowMoreComponent from '../show-more-component/show-more-component';
-import GenreListComponent from '../genre-list-component/genre-list-component';
-import LoadingScreen from '../loading-screen/loading-screen';
-import {postFavouriteFilm, fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
+import FilmsList from '../films-list-component/films-list-component.jsx';
+import ShowMoreComponent from '../show-more-component/show-more-component.jsx';
+import GenreListComponent from '../genre-list-component/genre-list-component.jsx';
+import LoadingScreen from '../loading-screen/loading-screen.jsx';
+// import {postFavouriteFilm, fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
 import HeadGuestComponent from '../head-guest-component/head-guest-component';
 import {AuthorizationStatus} from '../../const';
 import {useSelector, useDispatch} from 'react-redux';
-import PlayButtonComponent from '../play-button/play-button';
+import PlayButtonComponent from '../play-button/play-button.jsx';
 import {Link} from 'react-router-dom';
-import FavouriteListComponent from '../favourite-films/favourite-films';
-import FooterComponent from '../footer-component/footer-component';
-import LogoComponent from '../logo-component/logo-component';
-const MainComponent = () => {
-  const {films, currentNumberFilms, isDataLoaded, film} = useSelector((state) => state.FILMS);
-  const {user, status} = useSelector((state) => state.USER);
+import FavouriteListComponent from '../favourite-films/favourite-films.jsx';
+import FooterComponent from '../footer-component/footer-component.jsx';
+import LogoComponent from '../logo-component/logo-component.jsx';
+import {store} from '../../index.jsx';
+import PropTypes from 'prop-types';
+const MainComponent = ({movies}) => {
+  console.log(store.getState());
+  //const {films, currentNumberFilms, isDataLoaded, film} = useSelector((state) => state.FILMS);
+  const filmsState = useSelector((state) => state.FILMS);
+  const { currentNumberFilms, isDataLoaded } = filmsState || {};
+  console.log(filmsState);
+  const film = movies[0];
+  console.log('film',movies);
+  //const {user, status} = useSelector((state) => state.USER);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (!isDataLoaded) {
-      dispatch(fetchPromoFilm());
-      dispatch(fetchFilmsList());
-    }
-  }, [isDataLoaded]);
+  // useEffect(() => {
+  //   if (!isDataLoaded) {
+  //     dispatch(fetchPromoFilm());
+  //     dispatch(fetchFilmsList());
+  //   }
+  // }, [isDataLoaded]);
 
   if (!isDataLoaded) {
     return <LoadingScreen />;
   }
-  const addFavouriteList = () => {
-    dispatch(postFavouriteFilm(film.id));
-  };
+  // const addFavouriteList = () => {
+  //   dispatch(postFavouriteFilm(film.id));
+  // };
 
   return (
     <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img  src={film.posterUrl} alt={film.nameRu} />
         </div>
 
         <h1 className="visually-hidden">Check_It</h1>
@@ -61,7 +69,7 @@ const MainComponent = () => {
           <div className="movie-card__info">
             <div className="movie-card__poster">
               <img
-                src={film.posterImage}
+                src={film.posterUrl}
                 alt="The Grand Budapest Hotel poster"
                 width="218"
                 height="327"
@@ -77,9 +85,9 @@ const MainComponent = () => {
 
               <div className="movie-card__buttons">
                 <PlayButtonComponent film={film}></PlayButtonComponent>
-                <FavouriteListComponent
+                {/* <FavouriteListComponent
                   handleOnFavouriteList={addFavouriteList}
-                ></FavouriteListComponent>
+                ></FavouriteListComponent> */}
               </div>
             </div>
           </div>
@@ -88,14 +96,19 @@ const MainComponent = () => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenreListComponent films={films}></GenreListComponent>
-          <FilmsList films={films} maxFilms={currentNumberFilms}></FilmsList>
-          <ShowMoreComponent></ShowMoreComponent>
+          {/* <GenreListComponent films={movies}></GenreListComponent> */}
+          <FilmsList films={movies} maxFilms={currentNumberFilms}></FilmsList>
+          <ShowMoreComponent  films={movies}></ShowMoreComponent>
         </section>
         <FooterComponent></FooterComponent>
       </div>
     </React.Fragment>
   );
 };
+
+
+MainComponent.propTypes = {
+  movies:PropTypes.array.isRequired,
+} ;
 
 export default MainComponent;

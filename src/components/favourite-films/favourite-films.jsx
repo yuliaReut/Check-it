@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useDispatch} from 'react-redux';
-import {checkAuth} from '../../store/api-actions';
+// import {checkAuth} from '../../store/api-actions';
 const FavouriteListComponent = ({handleOnFavouriteList}) => {
   const dispatch = useDispatch();
-  const handleOnClisk = () => {
-    dispatch(checkAuth());
-    handleOnFavouriteList();
-  };
+  // const handleOnClisk = () => {
+  //   dispatch(checkAuth());
+  //   handleOnFavouriteList();
+  // };
   return (
     <React.Fragment>
       <button className="btn btn--list movie-card__button" type="button" onClick={handleOnClisk}>
