@@ -1318,6 +1318,11 @@ main {
   -ms-flex-direction: column;
   flex-direction: column;
 }
+.search__button{
+  color:#000;
+  background-color: white;
+  border-radius: 5px;
+}
 .user-page__head {
   margin-bottom: 40px;
   width: 100%;

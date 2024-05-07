@@ -7,10 +7,17 @@
 
 # Вспомогательные файлы
 *.log*
+<<<<<<< HEAD
 .editorconfig
 public
 src/mocks
 markup
+=======
+# .editorconfig
+# public
+# src/mocks
+# markup
+>>>>>>> repforme
 public/bundle.js
 public/bundle.js.map
 coverage/

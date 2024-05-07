@@ -3,7 +3,7 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 export const kinopoiskApi = createApi({
   reducerPath: 'kinopoiskApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://kinopoiskapiunofficial.tech', // Используем переменную окружения
+    baseUrl: 'https://kinopoiskapiunofficial.tech',
     headers: {
       'X-API-KEY': '5e2d7527-d92a-4c0e-a38e-a60f33cdf4ab',
       'Content-Type': 'application/json',

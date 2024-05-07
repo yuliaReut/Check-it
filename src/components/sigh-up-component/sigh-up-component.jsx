@@ -1,12 +1,13 @@
 import React, { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import FooterComponent from '../footer-component/footer-component.jsx';
 import HeaderComponent from '../header-component/header-component.jsx';
-import { AppRoute } from '../../const';
-const SighInComponent = () => {
+import { useNavigate } from 'react-router-dom';
+import {AppRoute} from '../../const';
+const SignUpComponent = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const userData = {
@@ -14,27 +15,17 @@ const SighInComponent = () => {
       password: passwordRef.current.value,
     };
 
-    // Получаем данные зарегистрированного пользователя из localStorage
-    const storedUser = JSON.parse(localStorage.getItem('user'));
+    // Сохранение данных пользователя в localStorage
+    localStorage.setItem('user', JSON.stringify(userData));
 
-    if (
-      storedUser &&
-      storedUser.login === userData.login &&
-      storedUser.password === userData.password
-    ) {
-      // Данные верны, перенаправляем на главную страницу
-      navigate(AppRoute.ROOT);
-    } else {
-      // Данные неверны, выводим сообщение об ошибке
-      alert('Неверный логин или пароль');
-    }
+    // После успешной регистрации перенаправляем на главную страницу
+    navigate(AppRoute.ROOT);
   };
-
   return (
     <div className="user-page">
-      <HeaderComponent text={'Вход'}></HeaderComponent>
+      <HeaderComponent text={'Регистрация'}></HeaderComponent>
       <div className="sign-in user-page__content">
-        <form action="" method="post" className="sign-in__form" onSubmit={handleSubmit}>
+        <form action="" method="post" className="sign-in__form" >
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -66,16 +57,15 @@ const SighInComponent = () => {
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit">
-              Вход
+            <button className="sign-in__btn" type="submit" onClick={handleSubmit}>
+              Отправить
             </button>
           </div>
         </form>
       </div>
       <FooterComponent></FooterComponent>
     </div>
-
   );
 };
 
-export default SighInComponent;
+export default SignUpComponent;

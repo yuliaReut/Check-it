@@ -1,27 +1,40 @@
-import React, {Component} from 'react';
-
-export default class ErrorBoundary extends Component {
+import React, { Component } from 'react';
+import {PropTypes} from 'prop-types';
+class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = {hasError: false};
+    this.state = { hasError: false, error: null, errorInfo: null };
   }
-
   static getDerivedStateFromError(error) {
-    // Обновите состояние, чтобы следующий рендер показал запасной UI.
-    return {hasError: true};
+    return { hasError: true };
   }
-
   componentDidCatch(error, errorInfo) {
-    // Вы также можете записать информацию об ошибке в соответствующее хранилище
+    this.setState({
+      error: error,
+      errorInfo: errorInfo
+    });
     console.error(error, errorInfo);
   }
-
   render() {
     if (this.state.hasError) {
-      // Вы можете отрендерить любой запасной UI
-      return <h1>Что-то пошло не так.</h1>;
+      return (
+        <div>
+          <h1>О, нет! Ошибка!</h1>
+          <p>Исправьте, пожалуйста, следующие ошибки в приложении САМИ. Или попросите помощи у Юлии Реутовой=).</p>
+          <details style={{ whiteSpace: 'pre-wrap' }}>
+            {this.state.error && this.state.error.toString()}
+            <br />
+            {this.state.errorInfo && this.state.errorInfo.componentStack}
+          </details>
+        </div>
+      );
     }
-
-    return this.props;
+    return this.props.children;
   }
 }
+
+ErrorBoundary.propTypes = {
+  children: PropTypes.node,
+};
+
+export default ErrorBoundary;

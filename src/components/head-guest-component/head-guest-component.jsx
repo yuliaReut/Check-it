@@ -4,8 +4,11 @@ const HeadGuestComponent = () => {
   return (
     <React.Fragment>
       <div className="user-block">
-        <Link to={`/login`} className="user-block__link">
-          Sign in
+        <Link to={`/Check-it/signin`} className="user-block__link">
+          Вход
+        </Link>
+        <Link to={`/Check-it/signup`} className="user-block__link">
+          Регистрация
         </Link>
       </div>
     </React.Fragment>

@@ -10,7 +10,7 @@ const FooterComponent = () => {
         </Link>
       </div>
       <div className="copyright">
-        <p>© Check it 2024</p>
+        <p>© 2024 Check it</p>
       </div>
     </footer>
   );

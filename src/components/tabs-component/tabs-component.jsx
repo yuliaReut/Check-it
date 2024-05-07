@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import OverviewComponent from '../overview-component/overview-component';
 import DetailsComponent from '../details-component/details-component';
-import FilmReviewsComponent from '../page-reviews-component/film-reviews-component';
 import FilmProp from '../../props/film.prop';
 const TabsComponent = (props) => {
-  const {film} = props;
+  const { film } = props;
   const [activeTab, setActiveTab] = useState(`overview`);
 
   const onTabClick = (evt, tab) => {
@@ -30,18 +29,10 @@ const TabsComponent = (props) => {
               Details
             </a>
           </li>
-          <li
-            className={`movie-nav__item ${activeTab === `reviews` ? `movie-nav__item--active` : ``}`}
-          >
-            <a href="#" className="movie-nav__link" onClick={(evt) => onTabClick(evt, `reviews`)}>
-              Reviews
-            </a>
-          </li>
         </ul>
       </nav>
       {activeTab === `overview` && <OverviewComponent film={film} />}
       {activeTab === `details` && <DetailsComponent film={film} />}
-      {activeTab === `reviews` && <FilmReviewsComponent film={film} />}
     </React.Fragment>
   );
 };
