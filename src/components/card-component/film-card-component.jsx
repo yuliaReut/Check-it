@@ -1,57 +1,41 @@
-import React, {useState} from 'react';
-import {PropTypes} from 'prop-types';
-import {Link} from 'react-router-dom';
+import React from 'react';
+import { PropTypes } from 'prop-types';
 import FilmProp from '../../props/film.prop';
 import VideoComponent from '../video-component/video-component';
+import { NavLink, useLocation } from 'react-router-dom';
+
 function CardComponent(props) {
-  const {film, onMouseEnter, onMouseLeave} = props;
-  const {nameRu, posterUrlPreview, filmId} = film;
-  console.log(filmId);
-  let [isPlaying, setIsPlaying] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const handleMouseEnter = () => {
-    setIsPlaying(true);
-    setIsActive(true);
-    onMouseEnter(film);
-  };
-  const handleMouseLeave = () => {
-    setIsPlaying(false);
-    setIsActive(false);
-    onMouseLeave();
-  };
-
+  const { film } = props;
+  const { nameRu, posterUrlPreview, filmId } = film;
+  const location = useLocation();
+  const isMainPage = location.pathname === '/Check-it';
+  const isFilmDetailsPage = location.pathname.includes('/films/');
+  let linkUrl;
+  if (isMainPage) {
+    linkUrl = `/Check-it/films/${filmId}`;
+  } else if (isFilmDetailsPage) {
+    const currentFilmId = location.pathname.split('/').pop();
+    linkUrl = currentFilmId === filmId.toString() ? location.pathname : `${location.pathname.replace(/\/\d+$/, '')}/${filmId}`;
+  } else {
+    linkUrl = `/Check-it/films/${filmId}`;
+  }
   return (
-    <article
-      className={`small-movie-card catalog__movies-card ${isActive ? `active` : ``}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
- <Link to={`films/${filmId}`} className="small-movie-card__image">
-      <div className="small-movie-card__image">
-
-             <VideoComponent
-          // previewVideoLink={previewVideoLink}
-          className="player__video"
-          previewImage={posterUrlPreview}
-          isActive={isActive}
-          isPlaying={isPlaying}
-        ></VideoComponent>
-
-      </div>
-      <h3 className="small-movie-card__title">
-
-          {nameRu}
-
-      </h3>
-      </Link>
+    <article className="small-movie-card catalog__movies-card active">
+      <NavLink to={linkUrl} className="small-movie-card__image">
+        <div className="small-movie-card__image">
+          <VideoComponent
+            className="player__video"
+            previewImage={posterUrlPreview}
+          ></VideoComponent>
+        </div>
+        <h3 className="small-movie-card__title">{nameRu}</h3>
+      </NavLink>
     </article>
   );
 }
-
 CardComponent.propTypes = {
   film: FilmProp,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
+
 };
 
 export default CardComponent;

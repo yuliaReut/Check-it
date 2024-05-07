@@ -428,6 +428,11 @@ main {
 .catalog__movies-list:last-child {
   margin-bottom: 0;
 }
+.search__button{
+  color:#000;
+  background-color: white;
+  border-radius: 5px;
+}
 .catalog__movies-card {
   width: calc((100% - 30px) / 4);
   margin-right: 10px;

@@ -1,40 +1,23 @@
 import React from 'react';
 import FilmProp from '../../props/film.prop';
 const DetailsComponent = (props) => {
-  const {film} = props;
+  const { film } = props;
+  const {rating, filmLength, year, genres} = film;
   return (
     <React.Fragment>
       <div className="movie-card__text movie-card__row">
-        <div className="movie-card__text-col">
-          <p className="movie-card__details-item">
-            <strong className="movie-card__details-name">{film.director}</strong>
-            <span className="movie-card__details-value">Wes Andreson</span>
-          </p>
-          <p className="movie-card__details-item">
-            <strong className="movie-card__details-name">Starring</strong>
-            {film.starring.map((star, index) => {
-              return (
-                <React.Fragment key={index}>
-                  <span className="movie-card__details-value">{star}</span>
-                  <br />
-                </React.Fragment>
-              );
-            })}
-          </p>
-        </div>
-
-        <div className="movie-card__text-col">
+         <div className="movie-card__text-col">
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Run Time</strong>
-            <span className="movie-card__details-value">{film.runTime}</span>
+            <span className="movie-card__details-value">{filmLength}</span>
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Genre</strong>
-            <span className="movie-card__details-value">{film.genre}</span>
+            {genres.map((genre) => <span key={rating + genre.genre} className="movie-card__details-value"><br></br>{genre.genre}<br></br></span>)}
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Released</strong>
-            <span className="movie-card__details-value">{film.released}</span>
+            <span className="movie-card__details-value">{year}</span>
           </p>
         </div>
       </div>
