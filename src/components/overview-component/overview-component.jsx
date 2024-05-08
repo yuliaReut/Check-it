@@ -16,7 +16,7 @@ const OverviewComponent = (props) => {
         <p><strong>English Name: </strong>{nameEn}</p>
         <p className="movie-card__starring">
           <strong> Genres: </strong>
-          {genres.map((genre)=><span key={rating + genre.genre} className="movie-rating__count"><br></br>{genre.genre}<br></br></span>)}
+          {genres.map((genre)=><span key={rating + genre.genre} className="movie-rating__count">{genre.genre}</span>)}
         </p>
       </div>
     </React.Fragment>

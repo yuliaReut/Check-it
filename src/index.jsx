@@ -7,7 +7,7 @@ import createAPI from './api/api';
 import {requireAuthorization} from './store/actions';
 // import {checkAuth} from './store/api-actions';
 import {AuthorizationStatus} from './const';
-import {redirect} from './store/redirect';
+
 import {configureStore} from '@reduxjs/toolkit';
 import {BrowserRouter} from 'react-router-dom';
 import {kinopoiskApi} from './api/kinopoisk-api';

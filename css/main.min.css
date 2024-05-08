@@ -706,6 +706,7 @@ main {
   font-weight: 700;
 }
 .movie-card__details-value {
+  display: block;
   color: #131313;
 }
 .movie-card__reviews {
@@ -802,6 +803,7 @@ main {
   font-weight: 400;
 }
 .movie-rating__count {
+  display: block;
   color: #382c2a;
 }
 .page-content {

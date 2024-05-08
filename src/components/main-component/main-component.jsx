@@ -17,14 +17,10 @@ import SearchPanel from '../search-component/search-component.jsx';
 import PropTypes from 'prop-types';
 const MainComponent = ({ movies }) => {
   console.log(store.getState());
-  //const {films, currentNumberFilms, isDataLoaded, film} = useSelector((state) => state.FILMS);
-  const filmsState = useSelector((state) => state.FILMS);
-  const { currentNumberFilms, isDataLoaded } = filmsState || {};
-  console.log(filmsState);
   const film = movies[0];
   console.log('film', movies);
-  //const {user, status} = useSelector((state) => state.USER);
-  const dispatch = useDispatch();
+
+
   // useEffect(() => {
   //   if (!isDataLoaded) {
   //     dispatch(fetchPromoFilm());
@@ -32,9 +28,7 @@ const MainComponent = ({ movies }) => {
   //   }
   // }, [isDataLoaded]);
 
-  if (!isDataLoaded) {
-    return <LoadingScreen />;
-  }
+
   // const addFavouriteList = () => {
   //   dispatch(postFavouriteFilm(film.id));
   // };
@@ -99,7 +93,7 @@ const MainComponent = ({ movies }) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           {/* <GenreListComponent films={movies}></GenreListComponent> */}
-          <FilmsList films={movies} maxFilms={currentNumberFilms}></FilmsList>
+          <FilmsList films={movies} maxFilms={8}></FilmsList>
         </section>
         <FooterComponent></FooterComponent>
       </div>
