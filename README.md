@@ -23,7 +23,7 @@
 - [ ] Есть применение lazy + Suspense.
 **Redux**
 - [x]  Используем **Modern Redux with Redux Toolkit**.
-- [ ] Используем **слайсы** (https://redux.js.org/tutorials/fundamentals/part-8-modern-redux#using-createslice).
+- [x] Используем **слайсы** (https://redux.js.org/tutorials/fundamentals/part-8-modern-redux#using-createslice).
 - [ ] Есть хотя бы одна **кастомная мидлвара** (**[store ⇒ next ⇒ action ⇒ {}](https://redux.js.org/understanding/history-and-design/middleware)** или **`[createListenerMiddleware](https://redux-toolkit.js.org/api/createListenerMiddleware)`** ).
 - [x] Используется RTK Query.
 - [ ] Используется Transforming Responses.

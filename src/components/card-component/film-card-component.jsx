@@ -1,13 +1,9 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import FilmProp from '../../props/film.prop';
 import VideoComponent from '../video-component/video-component';
 import { NavLink, useLocation } from 'react-router-dom';
 
-function CardComponent(props) {
-  const { film } = props;
-  const { nameRu, posterUrlPreview, filmId } = film;
-  const location = useLocation();
+const pageUrlCheck = (location, filmId)=>{
   const isMainPage = location.pathname === '/Check-it';
   const isFilmDetailsPage = location.pathname.includes('/films/');
   let linkUrl;
@@ -19,6 +15,15 @@ function CardComponent(props) {
   } else {
     linkUrl = `/Check-it/films/${filmId}`;
   }
+  return linkUrl;
+}
+
+function CardComponent(props) {
+  const { film } = props;
+  const { nameRu, posterUrlPreview, filmId } = film;
+  const location = useLocation();
+  let linkUrl = pageUrlCheck(location, filmId);
+
   return (
     <article className="small-movie-card catalog__movies-card active">
       <NavLink to={linkUrl} className="small-movie-card__image">
@@ -35,7 +40,6 @@ function CardComponent(props) {
 }
 CardComponent.propTypes = {
   film: FilmProp,
-
 };
 
 export default CardComponent;
