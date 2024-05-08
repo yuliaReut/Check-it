@@ -1,33 +1,45 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FooterComponent from '../footer-component/footer-component.jsx';
 import HeaderComponent from '../header-component/header-component.jsx';
+import { useSelector, useDispatch } from 'react-redux';
+import { setAuthorizationStatus } from '../../store/user/user-slicer.js';
 import { AppRoute } from '../../const';
 const SighInComponent = () => {
+  const authStatus = useSelector(state => state.USER.status);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const navigate = useNavigate();
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+  console.log(authStatus);
+  useEffect(() => {
+    const storedAuthStatus = localStorage.getItem('authStatus');
+    if (storedAuthStatus) {
+      dispatch(setAuthorizationStatus(storedAuthStatus));
+    }
+  }, [dispatch]);
+  const handleLogin = () => {
     const userData = {
       login: emailRef.current.value,
       password: passwordRef.current.value,
     };
 
-    // Получаем данные зарегистрированного пользователя из localStorage
     const storedUser = JSON.parse(localStorage.getItem('user'));
-
     if (
       storedUser &&
       storedUser.login === userData.login &&
       storedUser.password === userData.password
     ) {
-      // Данные верны, перенаправляем на главную страницу
+      localStorage.setItem('authStatus', 'AUTH');
+      dispatch(setAuthorizationStatus('AUTH'));
       navigate(AppRoute.ROOT);
     } else {
-      // Данные неверны, выводим сообщение об ошибке
       alert('Неверный логин или пароль');
     }
+  };
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    handleLogin();
   };
 
   return (
@@ -66,7 +78,7 @@ const SighInComponent = () => {
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit">
+            <button className="sign-in__btn" type="submit" >
               Вход
             </button>
           </div>
@@ -74,7 +86,6 @@ const SighInComponent = () => {
       </div>
       <FooterComponent></FooterComponent>
     </div>
-
   );
 };
 

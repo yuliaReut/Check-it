@@ -13,7 +13,7 @@ const DetailsComponent = (props) => {
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Genre</strong>
-            {genres.map((genre) => <span key={rating + genre.genre} className="movie-card__details-value"><br></br>{genre.genre}<br></br></span>)}
+            {genres.map((genre) => <span key={rating + genre.genre} className="movie-card__details-value">{genre.genre}</span>)}
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Released</strong>
