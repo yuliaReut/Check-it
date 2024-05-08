@@ -9,10 +9,8 @@ Thumbs.db
 
 # Вспомогательные файлы
 *.log*
-# .editorconfig
-# public
-# src/mocks
-# markup
+.editorconfig
+public
 public/bundle.js
 public/bundle.js.map
 coverage/
