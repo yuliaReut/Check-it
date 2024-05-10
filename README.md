@@ -1,6 +1,6 @@
-<<<<<<< HEAD
 # Check-it
 <img src="https://github.com/yuliaReut/Check-it/actions/workflows/check.yml/badge.svg" alt="sign of workflow state">
+
 
 - Deploy: https://yuliareut.github.io/Check-it/
 - API: https://kinopoiskapiunofficial.tech/documentation/api/

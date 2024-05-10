@@ -1,17 +1,18 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import FilmProp from '../../props/film.prop';
+import FilmProp from '../../props/film.prop.js';
 import { useDispatch, useSelector } from 'react-redux';
 
 import LogoComponent from '../logo-component/logo-component.jsx';
 import FooterComponent from '../footer-component/footer-component.jsx';
 import FilmsList from '../films-list-component/films-list-component.jsx';
-const MyListComponent = ({ films }) => {
+import { Link } from 'react-router-dom';
+const HistoryComponent = ({ films }) => {
 
   const favouriteFilms = useSelector((state) => state.FILMS.favouriteFilms) || [];
-  const user = JSON.parse(localStorage.getItem('currentUser'));
-  let favouriteMoviesIds = JSON.parse(localStorage.getItem(`favouriteMovies_${user.login}`)) || [];
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  let favouriteMoviesIds = JSON.parse(localStorage.getItem(`searchHistory_${currentUser.login}`)) || [];
 
   let favouriteMoviesList = films.slice().filter(movie => favouriteMoviesIds.includes(movie.filmId));
   const [favoriteMovies, setFavoriteMovies] = useState(favouriteMoviesList);
@@ -22,16 +23,16 @@ const MyListComponent = ({ films }) => {
 
   }, [favouriteFilms])
 
-  const authStatus = localStorage.getItem('authStatus');
+  const searchHistory = JSON.parse(localStorage.getItem(`searchHistory_${currentUser.login}`));
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <LogoComponent></LogoComponent>
 
-        <h1 className="page-title user-page__title">Избранные фильмы</h1>
+        <h1 className="page-title user-page__title">История поиска</h1>
 
         <div className="user-block">
-          {user.login}
+          {currentUser.login}
         </div>
       </header>
 
@@ -39,7 +40,14 @@ const MyListComponent = ({ films }) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__movies-list">
-          <FilmsList films={favoriteMovies} isAuthenticated={authStatus}></FilmsList>
+          <div>
+            {searchHistory ? searchHistory.map((searchTerm, index) => (
+              <Link to={`/Check-it/`} className="catalog__movies-list" key={index} >
+                {searchTerm}
+              </Link>
+            )) : <p>Ваша история пуста</p>}
+            { }
+          </div>
         </div>
       </section>
       <FooterComponent></FooterComponent>
@@ -47,8 +55,8 @@ const MyListComponent = ({ films }) => {
   );
 };
 
-MyListComponent.propTypes = {
+HistoryComponent.propTypes = {
   films: PropTypes.arrayOf(FilmProp),
 };
 
-export default MyListComponent;
+export default HistoryComponent;

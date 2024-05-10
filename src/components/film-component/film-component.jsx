@@ -1,79 +1,81 @@
-import React from 'react';
+import React , {useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, Link } from 'react-router-dom';
 import FilmProp from '../../props/film.prop';
 import TabsComponent from '../tabs-component/tabs-component.jsx';
 import FilmsList from '../films-list-component/films-list-component.jsx';
-import NonexistentPageComponent from '../nonexistent-page-component/nonexistent-page-component.jsx';
 import { AuthorizationStatus } from '../../const';
-import HeadGuestComponent from '../head-guest-component/head-guest-component.jsx';
-// import {postFavouriteFilm} from '../../store/api-actions';
-// import PlayButtonComponent from '../play-button-component/play-button.jsx';
+import FavouriteButtonComponent from '../favourite-button-component/favourite-button-component.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import FavouriteListComponent from '../favourite-films/favourite-films.jsx';
+import { useGetMovieDetailsQuery } from "../../api/kinopoisk-api.js"
 import FooterComponent from '../footer-component/footer-component.jsx';
-import LogoComponent from '../logo-component/logo-component.jsx';
+import {setFavouriteFilms} from "../../store/films/films-slicer.js"
+import LoadingScreen from '../loading-screen/loading-screen.jsx';
+import HeaderComponent from '../header-component/header-component.jsx';
+import { setAuthorizationStatus, logout } from '../../store/user/user-slicer.js';
 const FilmComponent = ({ films }) => {
   const id = Number(useParams().id);
-  const item = films.find((it) => it.filmId === id);
-  if (item === undefined || item === null) {
-    return <NonexistentPageComponent />;
+
+  const dispatch = useDispatch();
+const favouriteFilms = useSelector((state) => state.FILMS.favouriteFilms);
+const authStatus = useSelector((state) => state.USER.authStatus);
+console.log(favouriteFilms);
+const [isAdded, setIsAdded] = useState(favouriteFilms.includes(id));
+  const { data: film, error, isLoading } = useGetMovieDetailsQuery(id);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const favouriteMovies = JSON.parse(localStorage.getItem(`favouriteMovies_${currentUser.login}`)) || [];
+
+  useEffect(() => {
+    const storedAuthStatus = localStorage.getItem('authStatus');
+    dispatch(setAuthorizationStatus(storedAuthStatus));
+  }, [dispatch]);
+  useEffect(() => {
+    setFavouriteFilms(favouriteMovies)
+    setIsAdded(favouriteFilms.includes(id));
+  }, [isAdded, favouriteFilms]);
+
+  if (isLoading) {
+    return <LoadingScreen />;
   }
+
+  if (error) {
+    return <div>Ошибка: {error.toString()}</div>;
+  }
+  console.log('Фильмы:', film);
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={item.posterUrl} alt={item.nameRu} />
+            <img src={film.posterUrl} alt={film.nameOriginal} />
           </div>
           <h1 className="visually-hidden">Check it</h1>
-          <header className="page-header movie-card__head">
-            <LogoComponent></LogoComponent>
-
-            <div className="user-block">
-              {status === AuthorizationStatus.AUTH && user !== null ? (
-                <>
-                  {/* <div className="user-block">{user.email}</div> */}
-                  <div className="user-block__avatar">
-                    {/* <img src={user.avatarUrl} alt="User avatar" width="63" height="63" /> */}
-                  </div>
-                </>
-              ) : (
-                <HeadGuestComponent />
-              )}
-            </div>
-          </header>
+          <HeaderComponent onExit={handleLogout} isAuthenticated={authStatus}></HeaderComponent>
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{item.nameRu}</h2>
+              <h2 className="movie-card__title">{film.nameRu}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__year"> {item.year}</span>
+                <span className="movie-card__year"> {film.year}</span>
               </p>
-
-              {/* <div className="movie-card__buttons">
-                <PlayButtonComponent film={item}></PlayButtonComponent>
-                <FavouriteListComponent
-                  handleOnFavouriteList={addFavouriteList}
-                ></FavouriteListComponent>
-                {status === AuthorizationStatus.AUTH && user !== null ? (
-                  <Link to={`/films/${id}/review`} className="btn movie-card__button">
-                    Add review
-                  </Link>
-                ) : (
-                  ``
-                )}
-              </div> */}
+              <div className="movie-card__buttons">
+                {authStatus === AuthorizationStatus.AUTH ? (
+                  <FavouriteButtonComponent filmId={id}></FavouriteButtonComponent>) : ( `` )
+                }
+              </div>
             </div>
           </div>
         </div>
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={item.posterUrlPreview} alt={item.nameRu} width="218" height="327" />
+              <img src={film.posterUrlPreview} alt={film.nameRu} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <TabsComponent film={item} ></TabsComponent>
+              <TabsComponent film={film} ></TabsComponent>
             </div>
           </div>
         </div>
@@ -82,13 +84,13 @@ const FilmComponent = ({ films }) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__movies-list">
-            <FilmsList
+            <FilmsList isAuthenticated={authStatus}
               films={
                 films
                   .slice()
                   .filter((filmCard) =>
                     filmCard.genres.some((filmGenre) =>
-                      item.genres.some((itemGenre) => itemGenre.genre === filmGenre.genre)
+                      film.genres.some((itemGenre) => itemGenre.genre === filmGenre.genre)
                     )
                   )
                   .slice(0, 4)

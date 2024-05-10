@@ -336,17 +336,20 @@ main {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  min-width: 128px;
+  /* min-width: 128px; */
 }
 .btn:hover {
   background: rgba(0, 0, 0, 0.51);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+
 }
 .btn img,
 .btn svg {
   vertical-align: top;
-  margin-right: 9px;
+}
+.btn:hover svg {
+  filter: drop-shadow(0 0 2px red) brightness(1);
 }
 .catalog {
   margin-bottom: 115px;
@@ -429,7 +432,8 @@ main {
   margin-bottom: 0;
 }
 .catalog__movies-card {
-  width: calc((100% - 30px) / 4);
+  min-width: 22%;
+  width: 200px;
   margin-right: 10px;
   margin-bottom: 55px;
 }
@@ -835,6 +839,7 @@ main {
   margin-left: auto;
   margin-right: auto;
 }
+
 .page-footer {
   margin-top: auto;
 }
@@ -1302,6 +1307,10 @@ main {
   text-decoration: none;
   -webkit-transition: color 0.2s;
   transition: color 0.2s;
+}
+.user-block__button {
+  background-color: transparent;
+  border-color: white;
 }
 .user-block__link:hover {
   color: #c9b37e;

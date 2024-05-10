@@ -1,29 +1,45 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect} from 'react';
 import FooterComponent from '../footer-component/footer-component.jsx';
-import HeaderComponent from '../header-component/header-component.jsx';
+import LogoComponent from '../logo-component/logo-component.jsx';
 import { useNavigate } from 'react-router-dom';
-import {AppRoute} from '../../const';
+import { AppRoute } from '../../const';
 const SignUpComponent = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    setUsers(storedUsers);
+  }, []);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const userData = {
+    const newUser = {
       login: emailRef.current.value,
       password: passwordRef.current.value,
     };
 
-    // Сохранение данных пользователя в localStorage
-    localStorage.setItem('user', JSON.stringify(userData));
+    const existingUser = users.find((user) => user.login === newUser.login);
 
-    // После успешной регистрации перенаправляем на главную страницу
-    navigate(AppRoute.ROOT);
+    if (existingUser) {
+      setMessage(`Юзер с логином ${newUser.login} уже существует.`);
+    } else {
+      const updatedUsers = [...users, newUser];
+      setUsers(updatedUsers);
+      localStorage.setItem('users', JSON.stringify(updatedUsers));
+      alert(`Юзер с логином ${newUser.login} успешно зарегистрирован.`);
+      navigate(AppRoute.ROOT);
+    }
   };
   return (
     <div className="user-page">
-      <HeaderComponent text={'Регистрация'}></HeaderComponent>
+      <header className="page-header user-page__head">
+        <h1>Регистрация</h1>
+        <LogoComponent></LogoComponent>
+      </header>
       <div className="sign-in user-page__content">
         <form action="" method="post" className="sign-in__form" >
           <div className="sign-in__fields">
@@ -62,6 +78,7 @@ const SignUpComponent = () => {
             </button>
           </div>
         </form>
+        {message && <p>{message}</p>}
       </div>
       <FooterComponent></FooterComponent>
     </div>
