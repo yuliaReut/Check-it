@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import LogoComponent from '../logo-component/logo-component.jsx';
 import FooterComponent from '../footer-component/footer-component.jsx';
 import FilmsList from '../films-list-component/films-list-component.jsx';
-const MyListComponent = ({ films }) => {
+const SearchComponent = ({ films }) => {
 
   const favouriteFilms = useSelector((state) => state.FILMS.favouriteFilms) || [];
   const user = JSON.parse(localStorage.getItem('currentUser'));
@@ -28,7 +28,7 @@ const MyListComponent = ({ films }) => {
       <header className="page-header user-page__head">
         <LogoComponent></LogoComponent>
 
-        <h1 className="page-title user-page__title">Избранные фильмы</h1>
+        <h1 className="page-title user-page__title">Результаты поиска по запросу</h1>
 
         <div className="user-block">
           {user.login}
@@ -47,8 +47,8 @@ const MyListComponent = ({ films }) => {
   );
 };
 
-MyListComponent.propTypes = {
+SearchComponent.propTypes = {
   films: PropTypes.arrayOf(FilmProp),
 };
 
-export default MyListComponent;
+export default SearchComponent;

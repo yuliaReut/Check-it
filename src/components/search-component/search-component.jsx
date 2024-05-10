@@ -2,8 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
-
+import { AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 const SearchPanel = ({ isAuthenticated }) => {
+  const user = JSON.parse(localStorage.getItem('currentUser'));
+
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -11,20 +14,22 @@ const SearchPanel = ({ isAuthenticated }) => {
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-
+  let savedSearchHistory = JSON.parse(localStorage.getItem(`searchHistory_${user.login}`)) || [];
+  console.log(savedSearchHistory);
   useEffect(() => {
-    const savedSearchHistory = localStorage.getItem('searchHistory');
+
+    savedSearchHistory = JSON.parse(localStorage.getItem(`searchHistory_${user.login}`)) || [];
     if (savedSearchHistory) {
-      setSearchHistory(JSON.parse(savedSearchHistory));
+      setSearchHistory(savedSearchHistory);
     }
   }, []);
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
-      if (isAuthenticated) {
+      if (isAuthenticated === AuthorizationStatus.AUTH) {
         const newSearchHistory = [...searchHistory, searchTerm];
         setSearchHistory(newSearchHistory);
-        localStorage.setItem('searchHistory', JSON.stringify(newSearchHistory));
+        localStorage.setItem(`searchHistory_${user.login}`, JSON.stringify(newSearchHistory));
       }
       navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
       setSearchTerm('');
@@ -64,7 +69,7 @@ const SearchPanel = ({ isAuthenticated }) => {
   };
 
   const handleHistoryClick = (searchTerm) => {
-    navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
+    navigate(`${AppRoute.ROOT}search?q=${encodeURIComponent(searchTerm)}`);
   };
 
   return (
@@ -99,7 +104,7 @@ const SearchPanel = ({ isAuthenticated }) => {
       {isAuthenticated && (
         <div>
           <h3>Search History</h3>
-          {searchHistory.map((searchTerm, index) => (
+          {savedSearchHistory.map((searchTerm, index) => (
             <div key={index} onClick={() => handleHistoryClick(searchTerm)}>
               {searchTerm}
             </div>
@@ -110,6 +115,6 @@ const SearchPanel = ({ isAuthenticated }) => {
   );
 };
 SearchPanel.propTypes = {
-  isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.string.isRequired,
 };
 export default SearchPanel;

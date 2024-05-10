@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 # Check-it
 <img src="https://github.com/yuliaReut/Check-it/actions/workflows/check.yml/badge.svg" alt="sign of workflow state">
-=======
+
 
 - Deploy: https://yuliareut.github.io/Check-it/
 - API: https://kinopoiskapiunofficial.tech/documentation/api/
@@ -30,4 +29,4 @@
 
 ### 2 уровень (необязательный):
 - [x] Настроен CI/CD. (https://github.com/yuliaReut/Check-it/blob/main/.github/workflows/check.yml)
->>>>>>> main
+

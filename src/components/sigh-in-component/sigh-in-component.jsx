@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FooterComponent from '../footer-component/footer-component.jsx';
-import HeaderComponent from '../header-component/header-component.jsx';
+import LogoComponent from '../logo-component/logo-component.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuthorizationStatus } from '../../store/user/user-slicer.js';
 import { AppRoute } from '../../const';
@@ -11,25 +11,29 @@ const SighInComponent = () => {
   const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
-  console.log(authStatus);
+
   useEffect(() => {
     const storedAuthStatus = localStorage.getItem('authStatus');
     if (storedAuthStatus) {
       dispatch(setAuthorizationStatus(storedAuthStatus));
     }
   }, [dispatch]);
+
   const handleLogin = () => {
     const userData = {
       login: emailRef.current.value,
       password: passwordRef.current.value,
     };
 
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    if (
-      storedUser &&
-      storedUser.login === userData.login &&
-      storedUser.password === userData.password
-    ) {
+    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const user = storedUsers.find(
+      (storedUser) =>
+        storedUser.login === userData.login &&
+        storedUser.password === userData.password
+    );
+
+    if (user) {
+      localStorage.setItem('currentUser', JSON.stringify(userData));
       localStorage.setItem('authStatus', 'AUTH');
       dispatch(setAuthorizationStatus('AUTH'));
       navigate(AppRoute.ROOT);
@@ -37,14 +41,20 @@ const SighInComponent = () => {
       alert('Неверный логин или пароль');
     }
   };
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     handleLogin();
   };
 
+
   return (
     <div className="user-page">
-      <HeaderComponent text={'Вход'}></HeaderComponent>
+       <header className="page-header user-page__head">
+       <h1>Вход</h1>
+       <LogoComponent></LogoComponent>
+       </header>
+
       <div className="sign-in user-page__content">
         <form action="" method="post" className="sign-in__form" onSubmit={handleSubmit}>
           <div className="sign-in__fields">

@@ -11,13 +11,15 @@ import PrivateRoute from '../private-route-component/private-route-component.jsx
 import { useSelector } from 'react-redux';
 import { kinopoiskApi } from '../../api/kinopoisk-api';
 import ErrorBoundary from '../error-boundery/error-boundery.jsx';
+import LoadingScreen from '../loading-screen/loading-screen.jsx';
+import HistoryComponent from '../my-history-component/my-history-component.jsx';
+import SearchComponent from '../my-search-component/my-search-component.jsx';
 
 const AppComponent = () => {
   const { useGetMoviesQuery } = kinopoiskApi;
   const { data, isLoading, error } = useGetMoviesQuery({ type: 'TOP_250_BEST_FILMS' });
   if (isLoading) {
-    console.log('Загрузка фильмов...');
-    console.log('Фильмы:', data);
+    return <LoadingScreen />;
   } else if (error) {
     console.log('Ошибка при загрузке фильмов:', error);
   } else {
@@ -32,6 +34,12 @@ const AppComponent = () => {
           <Route path={AppRoute.ROOT + `signup`} element={<SignUpComponent />} />
           <Route element={<PrivateRoute />}>
             <Route path={AppRoute.ROOT + 'favorites'} element={<MyListComponent films={films} />} />
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path={AppRoute.ROOT + 'history'} element={<HistoryComponent films={films} />} />
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path={AppRoute.ROOT + `search?q=?`} element={<SearchComponent films={films} />} />
           </Route>
           <Route path={AppRoute.ROOT + `films/:id?`} element={<FilmComponent films={films} />} />
           <Route path="*" element={<NonexistentPageComponent />} />

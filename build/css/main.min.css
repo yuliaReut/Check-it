@@ -342,11 +342,14 @@ main {
   background: rgba(0, 0, 0, 0.51);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+  fill:red;
 }
 .btn img,
 .btn svg {
   vertical-align: top;
-  margin-right: 9px;
+}
+.btn:hover svg {
+  filter: drop-shadow(0 0 2px red) brightness(1);
 }
 .catalog {
   margin-bottom: 115px;
