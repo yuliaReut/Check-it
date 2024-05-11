@@ -22,7 +22,8 @@ const pageUrlCheck = (location, filmId)=>{
 
 function CardComponent(props) {
   const { film, isAuthenticated } = props;
-  const { nameRu, posterUrlPreview, filmId } = film;
+  const { nameRu, posterUrlPreview } = film;
+  const filmId = film.filmId || film.kinopoiskId;
   const location = useLocation();
   let linkUrl = pageUrlCheck(location, filmId);
 
@@ -30,15 +31,10 @@ function CardComponent(props) {
     <article className="small-movie-card catalog__movies-card active">
       {isAuthenticated === AuthorizationStatus.AUTH ? (<FavouriteButtonComponent filmId={filmId}></FavouriteButtonComponent>) : null}
       <NavLink to={linkUrl} className="small-movie-card__image">
-
-
           <VideoComponent
             className="player__video"
             previewImage={posterUrlPreview}
           ></VideoComponent>
-
-
-
       </NavLink>
       <h3 className="small-movie-card__title">{nameRu}</h3>
     </article>

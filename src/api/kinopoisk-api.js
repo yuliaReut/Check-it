@@ -17,9 +17,36 @@ export const kinopoiskApi = createApi({
     getMovieDetails: builder.query({
       query: (movieId) => `/api/v2.2/films/${movieId}`,
     }),
+    getSearchingMovies: builder.query({
+      query: (searchQuery) => `/api/v2.1/films/search-by-keyword?keyword=${encodeURIComponent(searchQuery)}`,
+    }),
+    getMoviesByIds: builder.query({
+      async queryFn(ids) {
+        try {
+          const responses = await Promise.all(
+            ids.map(async (id) => {
+              const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${id}`, {
+                headers: {
+                  'X-API-KEY': '5e2d7527-d92a-4c0e-a38e-a60f33cdf4ab',
+                  'Content-Type': 'application/json',
+                },
+              });
+              return response.json();
+            })
+          );
+          const films = responses;
+          return { data: films };
+        } catch (err) {
+          return { error: { message: err.message } };
+        }
+      },
+    }),
+
+
+
   }),
 });
 
-export const {useGetMoviesQuery, useGetMovieDetailsQuery} = kinopoiskApi;
+export const {useGetMoviesQuery, useGetMovieDetailsQuery, useGetSearchingMoviesQuery, useGetMoviesByIdsQuery} = kinopoiskApi;
 
 
