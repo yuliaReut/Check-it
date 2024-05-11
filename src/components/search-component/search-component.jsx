@@ -4,6 +4,9 @@ import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 import { AuthorizationStatus } from '../../const';
 import { AppRoute } from '../../const';
+import queryString from 'query-string';
+import { useGetSearchingMoviesQuery } from '../../api/kinopoisk-api.js';
+
 const SearchPanel = ({ isAuthenticated }) => {
   const user = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -15,14 +18,17 @@ const SearchPanel = ({ isAuthenticated }) => {
   const navigate = useNavigate();
   const location = useLocation();
   let savedSearchHistory = JSON.parse(localStorage.getItem(`searchHistory_${user.login}`)) || [];
-  console.log(savedSearchHistory);
+  const { data, isLoading, error } = useGetSearchingMoviesQuery(searchTerm);
   useEffect(() => {
+    const queryParams = queryString.parse(location.search);
+    const searchQuery = queryParams.q || '';
+    setSearchTerm(searchQuery);
 
     savedSearchHistory = JSON.parse(localStorage.getItem(`searchHistory_${user.login}`)) || [];
     if (savedSearchHistory) {
       setSearchHistory(savedSearchHistory);
     }
-  }, []);
+  }, [location.search]);
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
@@ -38,17 +44,17 @@ const SearchPanel = ({ isAuthenticated }) => {
     }
   };
 
-  const handleInputChange = debounce(async (value) => {
-    if (value.trim()) {
-      // Fetch suggestions from your API
-      const suggestions = await fetchSuggestions(value);
-      setSuggestions(suggestions);
-      setShowSuggestions(true);
-    } else {
-      setSuggestions([]);
-      setShowSuggestions(false);
-    }
-  }, 300);
+  // const handleInputChange = debounce(async (value) => {
+  //   if (value.trim()) {
+  //     // Fetch suggestions from your API
+  //     const suggestions = await fetchSuggestions(value);
+  //     setSuggestions(suggestions);
+  //     setShowSuggestions(true);
+  //   } else {
+  //     setSuggestions([]);
+  //     setShowSuggestions(false);
+  //   }
+  // }, 300);
 
   const handleInputFocus = () => {
     setShowSuggestions(true);
@@ -59,7 +65,7 @@ const SearchPanel = ({ isAuthenticated }) => {
   };
 
   const handleSuggestionClick = (suggestion) => {
-    navigate(`/item/${suggestion.id}`);
+    navigate(`/Check-it/${suggestion.id}`);
     setSearchTerm('');
     setSuggestions([]);
     setShowSuggestions(false);
@@ -69,29 +75,29 @@ const SearchPanel = ({ isAuthenticated }) => {
   };
 
   const handleHistoryClick = (searchTerm) => {
-    navigate(`${AppRoute.ROOT}search?q=${encodeURIComponent(searchTerm)}`);
+    navigate(`/Check-it/search/search?q=${encodeURIComponent(searchTerm)}`);
   };
 
   return (
-    <form className='search-form'>
+    <form className="user-block">
       <input
         type="text"
         value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.target.value);
-          handleInputChange(e.target.value);
+          //  handleInputChange(e.target.value);
         }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleSearch();
-          }
-        }}
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
+        // onKeyDown={(e) => {
+        //   if (e.key === 'Enter') {
+        //     handleSearch();
+        //   }
+        // }}
+        // onFocus={handleInputFocus}
+        // onBlur={handleInputBlur}
         ref={inputRef}
         placeholder="Search..."
       />
-      <button className="search__button" onClick={handleSearch}>Search</button>
+      <button className="search__button" onClick={() => handleHistoryClick(searchTerm)}>Search</button>
       {showSuggestions && (
         <div>
           {suggestions.map((suggestion) => (
@@ -101,16 +107,24 @@ const SearchPanel = ({ isAuthenticated }) => {
           ))}
         </div>
       )}
-      {isAuthenticated && (
-        <div>
-          <h3>Search History</h3>
-          {savedSearchHistory.map((searchTerm, index) => (
-            <div key={index} onClick={() => handleHistoryClick(searchTerm)}>
-              {searchTerm}
-            </div>
-          ))}
-        </div>
-      )}
+
+      <div className="search-movie-card-list">
+        {data ? data.films.map((film) => {
+          const filmId = film.filmId || film.kinopoiskId;
+          return (
+            <a className="search-movie-card" key={filmId} href={`${AppRoute.ROOT}films/${filmId}`}>
+
+              <div className="search-movie-card__image">
+                <img src={film.posterUrlPreview} alt={film.nameRu || film.nameEn} />
+                <span>{film.nameRu || film.nameEn}</span>
+              </div>
+            </a>
+          );
+        }) : ""}
+      </div>
+
+
+
     </form>
   );
 };

@@ -1244,7 +1244,7 @@ main {
 }
 .small-movie-card__image {
   position: relative;
-  z-index: 1;
+  /* z-index: 1; */
   height: 175px;
   color: white;
 }
@@ -1283,8 +1283,33 @@ main {
   text-decoration: none;
   color: inherit;
 }
-.user-block {
-  /* margin-left: auto; */
+.search-movie-card-list{
+  position: absolute;
+  width: 100%;
+left: 0;
+top: 30px;
+  display: flex;
+  flex-direction: column;
+  color: rgba(145, 145, 145,0.5);
+background-color:rgba(145, 145, 145,0.5);
+z-index: 1000;
+}
+.search-movie-card {
+  color: white;
+}
+.search-movie-card__image {
+  display: flex;
+  margin-top: 20px;
+
+  color: white;
+}
+.search-movie-card__image img{
+  width: 30px;
+  margin-right: 20px;
+  object-fit: cover;
+}
+.user-block{
+  position: relative;
 }
 .user-block__avatar {
   width: 63px;

@@ -10,8 +10,6 @@ const userSlice = createSlice({
   reducers: {
     setAuthorizationStatus(state, action) {
       state.authStatus = action.payload;
-
-      // Сохраняем authStatus в localStorage
       if (action.payload) {
         localStorage.setItem('authStatus', action.payload);
       } else {

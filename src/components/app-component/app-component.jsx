@@ -39,7 +39,7 @@ const AppComponent = () => {
             <Route path={AppRoute.ROOT + 'history'} element={<HistoryComponent films={films} />} />
           </Route>
           <Route element={<PrivateRoute />}>
-            <Route path={AppRoute.ROOT + `search?q=?`} element={<SearchComponent films={films} />} />
+            <Route path={AppRoute.ROOT + `search/:search?`} element={<SearchComponent films={films} />} />
           </Route>
           <Route path={AppRoute.ROOT + `films/:id?`} element={<FilmComponent films={films} />} />
           <Route path="*" element={<NonexistentPageComponent />} />

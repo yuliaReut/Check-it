@@ -8,9 +8,10 @@ const FilmsList = ({ films, isAuthenticated}) => {
   return (
       <div className="catalog__movies-list">
         {trimmedFilms.map((filmCard) => {
+          const filmId = filmCard.filmId || filmCard.kinopoiskId;
           return (
             <CardComponent
-              key={filmCard.filmId}
+              key={filmId}
               film={filmCard}
               isAuthenticated={isAuthenticated}
             />

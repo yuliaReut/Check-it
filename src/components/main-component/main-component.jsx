@@ -15,10 +15,11 @@ const MainComponent = ({ movies }) => {
   console.log('film', movies);
   const dispatch = useDispatch();
   const authStatus = useSelector((state) => state.USER.authStatus);
-  useEffect(() => {
-    const storedAuthStatus = localStorage.getItem('authStatus');
-    dispatch(setAuthorizationStatus(storedAuthStatus));
-  }, [dispatch]);
+  console.log(authStatus);
+  // useEffect(() => {
+  //   const storedAuthStatus = localStorage.getItem('authStatus');
+  //   dispatch(setAuthorizationStatus(storedAuthStatus));
+  // }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(logout());
