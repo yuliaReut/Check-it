@@ -1,9 +1,9 @@
 import React from 'react';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../const.js';
 import {Link} from 'react-router-dom';
 import FooterComponent from '../footer-component/footer-component.jsx';
 import HeaderComponent from '../header-component/header-component.jsx';
-const NonexistentPageComponent = () => {
+const Page404Component = () => {
   return (
     <div className="user-page">
       <HeaderComponent text="404 Not Found"></HeaderComponent>
@@ -18,4 +18,4 @@ const NonexistentPageComponent = () => {
   );
 };
 
-export default NonexistentPageComponent;
+export default Page404Component;

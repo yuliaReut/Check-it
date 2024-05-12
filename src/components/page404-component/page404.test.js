@@ -3,7 +3,7 @@ import React from 'react';
 import {render} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import NonexistentPageComponent from './nonexistent-page-component';
+import NonexistentPageComponent from './page404-component';
 
 it(`NotFoundScreen should render correctly`, () => {
   const history = createMemoryHistory();
