@@ -1,19 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { setFavouriteFilms } from '../../store/films/films-slicer';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const FavouriteButtonComponent = ({ filmId }) => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const [isAdded, setIsAdded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(currentUser){
+    if (currentUser) {
       const favouriteMovies = JSON.parse(localStorage.getItem(`favouriteMovies_${currentUser.login}`)) || [];
       setIsAdded(favouriteMovies.includes(filmId));
     }
-    
-    
   }, [filmId, currentUser]);
 
   const handleOnClick = () => {
@@ -29,14 +27,14 @@ const FavouriteButtonComponent = ({ filmId }) => {
     }
 
     localStorage.setItem(`favouriteMovies_${currentUser.login}`, JSON.stringify(favouriteMovies));
-    dispatch(setFavouriteFilms(favouriteMovies)); 
+    dispatch(setFavouriteFilms(favouriteMovies));
   };
 
   return (
     <React.Fragment>
       <button className="btn btn--play movie-card__button" type="button" onClick={handleOnClick}>
         <svg viewBox="0 0 24 24" width="24" height="24" >
-          {isAdded?<use xlinkHref="#heart-full"></use>:<use xlinkHref="#heart"></use>}
+          {isAdded ? <use xlinkHref="#heart-full"></use> : <use xlinkHref="#heart"></use>}
         </svg>
       </button>
     </React.Fragment>

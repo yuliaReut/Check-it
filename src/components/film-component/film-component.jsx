@@ -1,4 +1,4 @@
-import React , {useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, Link } from 'react-router-dom';
 import FilmProp from '../../props/film.prop';
@@ -7,9 +7,9 @@ import FilmsList from '../films-list-component/films-list-component.jsx';
 import { AuthorizationStatus } from '../../const';
 import FavouriteButtonComponent from '../favourite-button-component/favourite-button-component.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { useGetMovieDetailsQuery } from "../../api/kinopoisk-api.js"
+import { useGetMovieDetailsQuery } from "../../api/kinopoisk-api.js";
 import FooterComponent from '../footer-component/footer-component.jsx';
-import {setFavouriteFilms} from "../../store/films/films-slicer.js"
+import { setFavouriteFilms } from "../../store/films/films-slicer.js";
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import HeaderComponent from '../header-component/header-component.jsx';
 import { setAuthorizationStatus, logout } from '../../store/user/user-slicer.js';
@@ -17,17 +17,17 @@ const FilmComponent = ({ films }) => {
   const id = Number(useParams().id);
 
   const dispatch = useDispatch();
-const favouriteFilms = useSelector((state) => state.FILMS.favouriteFilms);
-const authStatus = useSelector((state) => state.USER.authStatus);
-console.log(favouriteFilms);
-const [isAdded, setIsAdded] = useState(favouriteFilms.includes(id));
+  const favouriteFilms = useSelector((state) => state.FILMS.favouriteFilms);
+  const authStatus = useSelector((state) => state.USER.authStatus);
+  console.log(favouriteFilms);
+  const [isAdded, setIsAdded] = useState(favouriteFilms.includes(id));
   const { data: film, error, isLoading } = useGetMovieDetailsQuery(id);
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const favouriteMovies = JSON.parse(localStorage.getItem(`favouriteMovies_${currentUser.login}`)) || [];
 
   useEffect(() => {
     const storedAuthStatus = localStorage.getItem('authStatus');
-    dispatch(setAuthorizationStatus(storedAuthStatus?storedAuthStatus:AuthorizationStatus.NO_AUTH));
+    dispatch(setAuthorizationStatus(storedAuthStatus ? storedAuthStatus : AuthorizationStatus.NO_AUTH));
   }, [dispatch]);
   useEffect(() => {
     setFavouriteFilms(favouriteMovies)
@@ -62,7 +62,7 @@ const [isAdded, setIsAdded] = useState(favouriteFilms.includes(id));
               </p>
               <div className="movie-card__buttons">
                 {authStatus === AuthorizationStatus.AUTH ? (
-                  <FavouriteButtonComponent filmId={id}></FavouriteButtonComponent>) : ( `` )
+                  <FavouriteButtonComponent filmId={id}></FavouriteButtonComponent>) : (``)
                 }
               </div>
             </div>

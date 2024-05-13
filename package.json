@@ -11,7 +11,7 @@
     "eslint": "eslint --ext .jsx --ext .js src/ ",
     "test": "npm run eslint && npm run test.jest && npm run format:check",
     "test.jest": "jest",
-    "format:check": "prettier --write .",
+    "format:check": "prettier --ckeck .",
     "lint": "npm run eslint && npm run format:check",
 
     "predeploy": "npm run build && replace-in-file ./build/index.html 'css/main.min.css' '/Check-it/css/main.min.css'",
@@ -85,6 +85,8 @@
     "reselect": "^4.0.0",
     "typescript": "^4.9.5",
     "dotenv": "^16.4.5",
-    "query-string": "^7.1.1"
+    "query-string": "^7.1.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5"
   }
 }

@@ -1,35 +1,26 @@
-import React, { Suspense, lazy } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
-
-import { kinopoiskApi } from '../../api/kinopoisk-api';
+import React, { useEffect } from 'react';
+import { setAuthorizationStatus } from '../../store/user/user-slicer.js';
+import { AuthorizationStatus } from '../../const';
 import ErrorBoundary from '../error-boundery/error-boundery.jsx';
-import LoadingScreen from '../loading-screen/loading-screen.jsx';
+import MoviesLoader from '../movies-loader-component/movies-loader-component.jsx';
+import { useDispatch } from 'react-redux';
+import { ThemeProvider } from '../../providers/theme-provider.jsx';
 
-
-
-const MoviesLoader =  lazy(() => import('../movies-loader-component/movies-loader-component.jsx'));
 const AppComponent = () => {
-  const { useGetMoviesQuery } = kinopoiskApi;
-  const { data:films, isLoading, error } = useGetMoviesQuery({ type: 'TOP_250_BEST_FILMS' });
-  if (isLoading) {
-    console.log('Фильмы:', films);
-    return <LoadingScreen />;
-  } else if (error) {
-    console.log('Ошибка при загрузке фильмов:', error);
-  } else {
-    // console.log('Фильмы:', data);
-    // const films = data && data.films ? data.films : [];
-    console.log('Фильмы:', films);
-    return (
-      <ErrorBoundary>
-        <Suspense fallback={<LoadingScreen />}>
-        <MoviesLoader />
-            
 
-        </Suspense>
-      </ErrorBoundary>
-    );
-  }
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const storedAuthStatus = localStorage.getItem('authStatus');
+    dispatch(setAuthorizationStatus(storedAuthStatus ? storedAuthStatus : AuthorizationStatus.NO_AUTH));
+  }, [dispatch]);
+
+  return (
+    <ErrorBoundary> 
+      <ThemeProvider >
+        <MoviesLoader />
+      </ThemeProvider>     
+    </ErrorBoundary>
+  );
+
 };
 export default AppComponent;

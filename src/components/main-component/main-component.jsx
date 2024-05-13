@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import FilmsList from '../films-list-component/films-list-component.jsx';
 import { AuthorizationStatus } from '../../const';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,28 +8,17 @@ import { store } from '../../index.jsx';
 import HeaderComponent from '../header-component/header-component.jsx';
 import PropTypes from 'prop-types';
 import { setAuthorizationStatus, logout } from '../../store/user/user-slicer.js';
+import { ThemeContext } from '../../providers/theme-provider.jsx';
 import useAuth from '../../hooks/use-auth.js';
-// const useAuth = ()=>{
-//   const authStatus = useSelector((state) => state.USER.authStatus);
-//   const dispatch = useDispatch();
-//   useEffect(() => {
-//     const storedAuthStatus = localStorage.getItem('authStatus');
-//     dispatch(setAuthorizationStatus(storedAuthStatus?storedAuthStatus:AuthorizationStatus.NO_AUTH));
-//   }, [dispatch]);
-//   return authStatus;
-// };
-const MainComponent = ({ movies }) => {
 
+const MainComponent = ({ movies }) => {
+  const { isDarkTheme} = useContext(ThemeContext);
   const film = movies[0];
   
   const authStatus = useAuth();
-  // const authStatus = useSelector((state) => state.USER.authStatus);
-  // console.log(authStatus);
+
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   const storedAuthStatus = localStorage.getItem('authStatus');
-  //   dispatch(setAuthorizationStatus(storedAuthStatus?storedAuthStatus:AuthorizationStatus.NO_AUTH));
-  // }, [dispatch]);
+
 
   const handleLogout = () => {
     dispatch(logout());
@@ -64,7 +53,7 @@ const MainComponent = ({ movies }) => {
           </div>
         </div>
       </section>
-      <div className="page-content">
+      <div className={`page-content page-content-${isDarkTheme?'dark':'light'}`}>
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <FilmsList films={movies} isAuthenticated={authStatus}></FilmsList>
