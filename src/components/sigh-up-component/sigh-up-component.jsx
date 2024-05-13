@@ -21,9 +21,7 @@ const SignUpComponent = () => {
       login: emailRef.current.value,
       password: passwordRef.current.value,
     };
-
     const existingUser = users.find((user) => user.login === newUser.login);
-
     if (existingUser) {
       setMessage(`Юзер с логином ${newUser.login} уже существует.`);
     } else {

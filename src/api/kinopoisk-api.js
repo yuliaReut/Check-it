@@ -5,7 +5,7 @@ export const kinopoiskApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://kinopoiskapiunofficial.tech',
     headers: {
-      'X-API-KEY': '5e2d7527-d92a-4c0e-a38e-a60f33cdf4ab',
+      'X-API-KEY': '2fa72f73-9c70-4176-bc49-3cd00029288e',
       'Content-Type': 'application/json',
     },
   }),
@@ -13,9 +13,11 @@ export const kinopoiskApi = createApi({
     getMovies: builder.query({
       // query: (params) => `/api/v2.2/films${params ? `?${new URLSearchParams(params).toString()}` : ''}`,
       query: (params) => `/api/v2.1/films/top?type=TOP_AWAIT_FILMS&page=1${params ? `&${new URLSearchParams(params).toString()}` : ''}`,
+      transformResponse: (response) => response.films ,
     }),
     getMovieDetails: builder.query({
       query: (movieId) => `/api/v2.2/films/${movieId}`,
+      
     }),
     getSearchingMovies: builder.query({
       query: (searchQuery) => `/api/v2.1/films/search-by-keyword?keyword=${encodeURIComponent(searchQuery)}`,
@@ -34,8 +36,8 @@ export const kinopoiskApi = createApi({
               return response.json();
             })
           );
-          const films = responses;
-          return { data: films };
+          
+          return { data: responses };
         } catch (err) {
           return { error: { message: err.message } };
         }

@@ -27,7 +27,7 @@ const [isAdded, setIsAdded] = useState(favouriteFilms.includes(id));
 
   useEffect(() => {
     const storedAuthStatus = localStorage.getItem('authStatus');
-    dispatch(setAuthorizationStatus(storedAuthStatus));
+    dispatch(setAuthorizationStatus(storedAuthStatus?storedAuthStatus:AuthorizationStatus.NO_AUTH));
   }, [dispatch]);
   useEffect(() => {
     setFavouriteFilms(favouriteMovies)
@@ -41,7 +41,7 @@ const [isAdded, setIsAdded] = useState(favouriteFilms.includes(id));
   if (error) {
     return <div>Ошибка: {error.toString()}</div>;
   }
-  console.log('Фильмы:', film);
+  console.log('Фильм:', film);
   const handleLogout = () => {
     dispatch(logout());
   };

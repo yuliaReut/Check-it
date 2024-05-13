@@ -1,50 +1,32 @@
 import React, { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import PrivateRoute from '../private-route-component/private-route-component.jsx';
+
 import { kinopoiskApi } from '../../api/kinopoisk-api';
 import ErrorBoundary from '../error-boundery/error-boundery.jsx';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
 
-const MainPage = lazy(() => import('../main-component/main-component.jsx'));
-const FilmPage = lazy(() => import('../film-component/film-component.jsx'));
-const FavoutitesFilsmPage = lazy(() => import('../my-list-component/my-list-component.jsx'));
-const HistoryPage = lazy(() => import('../my-history-component/my-history-component.jsx'));
-const SearchPage = lazy(() => import('../my-search-component/my-search-component.jsx'));
-const SignInPage = lazy(() => import('../sigh-in-component/sigh-in-component.jsx'));
-const SignUpPage = lazy(() => import('../sigh-up-component/sigh-up-component.jsx'));
-const Page404 = lazy(() => import('../page404-component/page404-component.jsx'));
 
+
+const MoviesLoader =  lazy(() => import('../movies-loader-component/movies-loader-component.jsx'));
 const AppComponent = () => {
   const { useGetMoviesQuery } = kinopoiskApi;
-  const { data, isLoading, error } = useGetMoviesQuery({ type: 'TOP_250_BEST_FILMS' });
+  const { data:films, isLoading, error } = useGetMoviesQuery({ type: 'TOP_250_BEST_FILMS' });
   if (isLoading) {
+    console.log('Фильмы:', films);
     return <LoadingScreen />;
   } else if (error) {
     console.log('Ошибка при загрузке фильмов:', error);
   } else {
-    console.log('Фильмы:', data);
-    const films = data && data.films ? data.films : [];
+    // console.log('Фильмы:', data);
+    // const films = data && data.films ? data.films : [];
     console.log('Фильмы:', films);
     return (
       <ErrorBoundary>
         <Suspense fallback={<LoadingScreen />}>
-        <Routes>
-          <Route path={AppRoute.ROOT} element={<MainPage movies={films} />} />
-          <Route path={AppRoute.ROOT + `signin`} element={<SignInPage />} />
-          <Route path={AppRoute.ROOT + `signup`} element={<SignUpPage />} />
-          <Route element={<PrivateRoute />}>
-            <Route path={AppRoute.ROOT + 'favorites'} element={<FavoutitesFilsmPage films={films} />} />
-          </Route>
-          <Route element={<PrivateRoute />}>
-            <Route path={AppRoute.ROOT + 'history'} element={<HistoryPage films={films} />} />
-          </Route>
-          <Route element={<PrivateRoute />}>
-            <Route path={AppRoute.ROOT + `search/:search?`} element={<SearchPage films={films} />} />
-          </Route>
-          <Route path={AppRoute.ROOT + `films/:id?`} element={<FilmPage films={films} />} />
-          <Route path="*" element={<Page404 />} />
-        </Routes>
+        <MoviesLoader />
+            
+
         </Suspense>
       </ErrorBoundary>
     );

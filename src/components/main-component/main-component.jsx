@@ -8,18 +8,28 @@ import { store } from '../../index.jsx';
 import HeaderComponent from '../header-component/header-component.jsx';
 import PropTypes from 'prop-types';
 import { setAuthorizationStatus, logout } from '../../store/user/user-slicer.js';
-
+import useAuth from '../../hooks/use-auth.js';
+// const useAuth = ()=>{
+//   const authStatus = useSelector((state) => state.USER.authStatus);
+//   const dispatch = useDispatch();
+//   useEffect(() => {
+//     const storedAuthStatus = localStorage.getItem('authStatus');
+//     dispatch(setAuthorizationStatus(storedAuthStatus?storedAuthStatus:AuthorizationStatus.NO_AUTH));
+//   }, [dispatch]);
+//   return authStatus;
+// };
 const MainComponent = ({ movies }) => {
-  console.log(store.getState());
+
   const film = movies[0];
-  console.log('film', movies);
+  
+  const authStatus = useAuth();
+  // const authStatus = useSelector((state) => state.USER.authStatus);
+  // console.log(authStatus);
   const dispatch = useDispatch();
-  const authStatus = useSelector((state) => state.USER.authStatus);
-  console.log(authStatus);
-  useEffect(() => {
-    const storedAuthStatus = localStorage.getItem('authStatus');
-    dispatch(setAuthorizationStatus(storedAuthStatus));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const storedAuthStatus = localStorage.getItem('authStatus');
+  //   dispatch(setAuthorizationStatus(storedAuthStatus?storedAuthStatus:AuthorizationStatus.NO_AUTH));
+  // }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(logout());

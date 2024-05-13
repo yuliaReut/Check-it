@@ -1403,3 +1403,14 @@ z-index: 1000;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+.catalog__movies-search-word{
+  display: flex;
+  margin-bottom: 60px;
+  cursor: pointer;
+}
+.catalog__movies-search-word:hover{
+  display: flex;
+  margin-bottom: 60px;
+  cursor: pointer;
+  color: #FD6D98;
+}

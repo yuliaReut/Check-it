@@ -8,9 +8,13 @@ const FavouriteButtonComponent = ({ filmId }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const favouriteMovies = JSON.parse(localStorage.getItem(`favouriteMovies_${currentUser.login}`)) || [];
-    setIsAdded(favouriteMovies.includes(filmId));
-  }, [filmId, currentUser.login]);
+    if(currentUser){
+      const favouriteMovies = JSON.parse(localStorage.getItem(`favouriteMovies_${currentUser.login}`)) || [];
+      setIsAdded(favouriteMovies.includes(filmId));
+    }
+    
+    
+  }, [filmId, currentUser]);
 
   const handleOnClick = () => {
     let favouriteMovies = JSON.parse(localStorage.getItem(`favouriteMovies_${currentUser.login}`)) || [];
@@ -25,7 +29,7 @@ const FavouriteButtonComponent = ({ filmId }) => {
     }
 
     localStorage.setItem(`favouriteMovies_${currentUser.login}`, JSON.stringify(favouriteMovies));
-    dispatch(setFavouriteFilms(favouriteMovies)); // Диспатчим действие для обновления списка избранных фильмов
+    dispatch(setFavouriteFilms(favouriteMovies)); 
   };
 
   return (

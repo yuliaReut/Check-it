@@ -44,7 +44,7 @@ const HistoryComponent = ({ films }) => {
         <div className="catalog__movies-list">
           <div>
             {searchHistory ? searchHistory.map((searchTerm, index) => (
-              <div className="catalog__movies-list" key={index} onClick={() => handleHistoryClick(searchTerm)}>
+              <div className="catalog__movies-search-word" key={index} onClick={() => handleHistoryClick(searchTerm)}>
                 {searchTerm}
               </div>
             )) : <p>Ваша история пуста</p>}

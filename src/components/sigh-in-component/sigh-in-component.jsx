@@ -6,18 +6,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setAuthorizationStatus } from '../../store/user/user-slicer.js';
 import { AppRoute } from '../../const';
 const SighInComponent = () => {
-  const authStatus = useSelector(state => state.USER.status);
+ 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
-
-  useEffect(() => {
-    const storedAuthStatus = localStorage.getItem('authStatus');
-    if (storedAuthStatus) {
-      dispatch(setAuthorizationStatus(storedAuthStatus));
-    }
-  }, [dispatch]);
 
   const handleLogin = () => {
     const userData = {
@@ -36,6 +29,7 @@ const SighInComponent = () => {
       localStorage.setItem('currentUser', JSON.stringify(userData));
       localStorage.setItem('authStatus', 'AUTH');
       dispatch(setAuthorizationStatus('AUTH'));
+      console.log('second');
       navigate(AppRoute.ROOT);
     } else {
       alert('Неверный логин или пароль');
