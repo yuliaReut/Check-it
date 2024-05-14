@@ -1,0 +1,1 @@
+import{P as e}from"./main-BJBasvi-.js";const t=e.shape({posterUrlPreview:e.string.isRequired,genres:e.array.isRequired,posterUrl:e.string.isRequired}).isRequired,i=r=>r.FILMS.favouriteFilms,o=r=>r.USER.authStatus;export{t as F,i as a,o as g};
