@@ -1,11 +1,12 @@
 import React from 'react';
+import {NavLink, useLocation} from 'react-router-dom';
+import {PropTypes} from 'prop-types';
+
 import FilmProp from '../../props/film.prop';
-import VideoComponent from '../video-component/video-component';
-import { NavLink, useLocation } from 'react-router-dom';
-import {PropTypes} from "prop-types";
-import FavouriteButtonComponent from '../favourite-button-component/favourite-button-component';
-import { AuthorizationStatus } from '../../const';
-const pageUrlCheck = (location, filmId)=>{
+import VideoComponent from '../video-component/video-component.jsx';
+import FavouriteButtonComponent from '../favourite-button-component/favourite-button-component.jsx';
+import {AuthorizationStatus} from '../../const';
+const pageUrlCheck = (location, filmId) => {
   const isMainPage = location.pathname === '/Check-it';
   const isFilmDetailsPage = location.pathname.includes('/films/');
   let linkUrl;
@@ -13,28 +14,30 @@ const pageUrlCheck = (location, filmId)=>{
     linkUrl = `/Check-it/films/${filmId}`;
   } else if (isFilmDetailsPage) {
     const currentFilmId = location.pathname.split('/').pop();
-    linkUrl = currentFilmId === filmId.toString() ? location.pathname : `${location.pathname.replace(/\/\d+$/, '')}/${filmId}`;
+    linkUrl =
+      currentFilmId === filmId.toString()
+        ? location.pathname
+        : `${location.pathname.replace(/\/\d+$/, '')}/${filmId}`;
   } else {
     linkUrl = `/Check-it/films/${filmId}`;
   }
   return linkUrl;
-}
+};
 
 function CardComponent(props) {
-  const { film, isAuthenticated } = props;
-  const { nameRu, posterUrlPreview } = film;
+  const {film, isAuthenticated} = props;
+  const {nameRu, posterUrlPreview} = film;
   const filmId = film.filmId || film.kinopoiskId;
   const location = useLocation();
   let linkUrl = pageUrlCheck(location, filmId);
 
   return (
     <article className="small-movie-card catalog__movies-card active">
-      {isAuthenticated === AuthorizationStatus.AUTH ? (<FavouriteButtonComponent filmId={filmId}></FavouriteButtonComponent>) : null}
+      {isAuthenticated === AuthorizationStatus.AUTH ? (
+        <FavouriteButtonComponent filmId={filmId}></FavouriteButtonComponent>
+      ) : null}
       <NavLink to={linkUrl} className="small-movie-card__image">
-          <VideoComponent
-            className="player__video"
-            previewImage={posterUrlPreview}
-          ></VideoComponent>
+        <VideoComponent className="player__video" previewImage={posterUrlPreview}></VideoComponent>
       </NavLink>
       <h3 className="small-movie-card__title">{nameRu}</h3>
     </article>
@@ -42,7 +45,7 @@ function CardComponent(props) {
 }
 CardComponent.propTypes = {
   film: FilmProp,
-  isAuthenticated: PropTypes.string.isRequired
+  isAuthenticated: PropTypes.string.isRequired,
 };
 
 export default CardComponent;

@@ -1,19 +1,17 @@
-import React, { useRef, useState, useEffect} from 'react';
+import React, {useRef, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+
 import FooterComponent from '../footer-component/footer-component.jsx';
 import LogoComponent from '../logo-component/logo-component.jsx';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import {useUserRegistration} from '../../hooks/use-user-signup.js';
+import {AppRoute} from '../../const';
 const SignUpComponent = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
-  const [users, setUsers] = useState([]);
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-    setUsers(storedUsers);
-  }, []);
+  const {registerUser, isUserExists} = useUserRegistration();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -21,25 +19,24 @@ const SignUpComponent = () => {
       login: emailRef.current.value,
       password: passwordRef.current.value,
     };
-    const existingUser = users.find((user) => user.login === newUser.login);
-    if (existingUser) {
+
+    if (isUserExists(newUser.login)) {
       setMessage(`Юзер с логином ${newUser.login} уже существует.`);
     } else {
-      const updatedUsers = [...users, newUser];
-      setUsers(updatedUsers);
-      localStorage.setItem('users', JSON.stringify(updatedUsers));
+      registerUser(newUser);
       alert(`Юзер с логином ${newUser.login} успешно зарегистрирован.`);
       navigate(AppRoute.ROOT);
     }
   };
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <h1>Регистрация</h1>
-        <LogoComponent></LogoComponent>
+        <LogoComponent />
       </header>
       <div className="sign-in user-page__content">
-        <form action="" method="post" className="sign-in__form" >
+        <form action="" method="post" className="sign-in__form">
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -78,7 +75,7 @@ const SignUpComponent = () => {
         </form>
         {message && <p>{message}</p>}
       </div>
-      <FooterComponent></FooterComponent>
+      <FooterComponent />
     </div>
   );
 };

@@ -1,36 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import PropTypes from 'prop-types';
-import { useParams, Link } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
+
 import FilmProp from '../../props/film.prop';
 import TabsComponent from '../tabs-component/tabs-component.jsx';
 import FilmsList from '../films-list-component/films-list-component.jsx';
-import { AuthorizationStatus } from '../../const';
+import {AuthorizationStatus} from '../../const';
 import FavouriteButtonComponent from '../favourite-button-component/favourite-button-component.jsx';
-import { useSelector, useDispatch } from 'react-redux';
-import { useGetMovieDetailsQuery } from "../../api/kinopoisk-api.js";
+// eslint-disable-next-line import/namespace
+import {useGetMovieDetailsQuery} from '../../api/kinopoisk-api.js';
 import FooterComponent from '../footer-component/footer-component.jsx';
-import { setFavouriteFilms } from "../../store/films/films-slicer.js";
+import {setFavouriteFilms} from '../../store/films/films-slicer.js';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import HeaderComponent from '../header-component/header-component.jsx';
-import { setAuthorizationStatus, logout } from '../../store/user/user-slicer.js';
-const FilmComponent = ({ films }) => {
+import {setAuthorizationStatus, logout} from '../../store/user/user-slicer.js';
+import {ThemeContext} from '../../providers/theme-provider.jsx';
+import {getAuthStatus, getFavouriteMoviesIds} from '../../utils/utils.js';
+import {getFavouriteFilmsSelector, getAuthStatusSelector} from '../../selectors/selectors.js';
+const FilmComponent = ({films}) => {
   const id = Number(useParams().id);
-
+  const {isDarkTheme} = useContext(ThemeContext);
   const dispatch = useDispatch();
-  const favouriteFilms = useSelector((state) => state.FILMS.favouriteFilms);
-  const authStatus = useSelector((state) => state.USER.authStatus);
-  console.log(favouriteFilms);
+  const favouriteFilms = useSelector(getFavouriteFilmsSelector);
+  const authStatus = useSelector(getAuthStatusSelector);
   const [isAdded, setIsAdded] = useState(favouriteFilms.includes(id));
-  const { data: film, error, isLoading } = useGetMovieDetailsQuery(id);
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  const favouriteMovies = JSON.parse(localStorage.getItem(`favouriteMovies_${currentUser.login}`)) || [];
+  const {data: film, error, isLoading} = useGetMovieDetailsQuery(id);
+  const favouriteMovies = getFavouriteMoviesIds();
 
   useEffect(() => {
-    const storedAuthStatus = localStorage.getItem('authStatus');
-    dispatch(setAuthorizationStatus(storedAuthStatus ? storedAuthStatus : AuthorizationStatus.NO_AUTH));
+    const storedAuthStatus = getAuthStatus();
+    dispatch(
+      setAuthorizationStatus(storedAuthStatus ? storedAuthStatus : AuthorizationStatus.NO_AUTH),
+    );
   }, [dispatch]);
   useEffect(() => {
-    setFavouriteFilms(favouriteMovies)
+    setFavouriteFilms(favouriteMovies);
     setIsAdded(favouriteFilms.includes(id));
   }, [isAdded, favouriteFilms]);
 
@@ -41,7 +46,7 @@ const FilmComponent = ({ films }) => {
   if (error) {
     return <div>Ошибка: {error.toString()}</div>;
   }
-  console.log('Фильм:', film);
+
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -62,8 +67,10 @@ const FilmComponent = ({ films }) => {
               </p>
               <div className="movie-card__buttons">
                 {authStatus === AuthorizationStatus.AUTH ? (
-                  <FavouriteButtonComponent filmId={id}></FavouriteButtonComponent>) : (``)
-                }
+                  <FavouriteButtonComponent filmId={id}></FavouriteButtonComponent>
+                ) : (
+                  ''
+                )}
               </div>
             </div>
           </div>
@@ -75,29 +82,27 @@ const FilmComponent = ({ films }) => {
             </div>
 
             <div className="movie-card__desc">
-              <TabsComponent film={film} ></TabsComponent>
+              <TabsComponent film={film}></TabsComponent>
             </div>
           </div>
         </div>
       </section>
-      <div className="page-content">
+      <div className={`page-content page-content-${isDarkTheme ? 'dark' : 'light'}`}>
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__movies-list">
-            <FilmsList isAuthenticated={authStatus}
-              films={
-                films
-                  .slice()
-                  .filter((filmCard) =>
-                    filmCard.genres.some((filmGenre) =>
-                      film.genres.some((itemGenre) => itemGenre.genre === filmGenre.genre)
-                    )
-                  )
-                  .slice(0, 4)
-              }
+            <FilmsList
+              isAuthenticated={authStatus}
+              films={films
+                .slice()
+                .filter((filmCard) =>
+                  filmCard.genres.some((filmGenre) =>
+                    film.genres.some((itemGenre) => itemGenre.genre === filmGenre.genre),
+                  ),
+                )
+                .slice(0, 4)}
               maxFilms={4}
             ></FilmsList>
-
           </div>
         </section>
         <FooterComponent></FooterComponent>

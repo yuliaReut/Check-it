@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   favouriteFilms: [],
@@ -14,6 +14,6 @@ const filmsSlice = createSlice({
   },
 });
 
-export const { setFavouriteFilms } = filmsSlice.actions;
+export const {setFavouriteFilms} = filmsSlice.actions;
 
 export default filmsSlice.reducer;

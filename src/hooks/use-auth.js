@@ -1,7 +1,8 @@
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
+import {getAuthStatusSelector} from '../selectors/selectors.js';
 const useAuth = () => {
-  const authStatus = useSelector((state) => state.USER.authStatus);
+  const authStatus = useSelector(getAuthStatusSelector);
   return authStatus;
 };
 

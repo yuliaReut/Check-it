@@ -1,20 +1,25 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 
 import FilmProp from '../../props/film.prop';
-import { useDispatch, useSelector } from 'react-redux';
-import { useGetMoviesByIdsQuery } from '../../api/kinopoisk-api.js';
+// eslint-disable-next-line import/namespace
+import {useGetMoviesByIdsQuery} from '../../api/kinopoisk-api.js';
 import LogoComponent from '../logo-component/logo-component.jsx';
 import FooterComponent from '../footer-component/footer-component.jsx';
 import FilmsList from '../films-list-component/films-list-component.jsx';
+import {getAuthStatus, getFavouriteMoviesIds, getCurrentUser} from '../../utils/utils.js';
+import {getFavouriteFilmsSelector, getAuthStatusSelector} from '../../selectors/selectors.js';
 const MyListComponent = () => {
+  const favouriteFilms = useSelector(getFavouriteFilmsSelector) || [];
+  let favouriteMoviesIds = getFavouriteMoviesIds();
+  const [favouriteFilm, setFavoriteFilms] = useState(favouriteMoviesIds);
+  const user = getCurrentUser();
+  useEffect(() => {
+    setFavoriteFilms(favouriteFilms);
+  }, [favouriteMoviesIds]);
 
-  const favouriteFilms = useSelector((state) => state.FILMS.favouriteFilms) || [];
-  const user = JSON.parse(localStorage.getItem('currentUser'));
-  let favouriteMoviesIds = JSON.parse(localStorage.getItem(`favouriteMovies_${user.login}`)) || [];
-  console.log(favouriteMoviesIds);
-  const { data, isLoading, error } = useGetMoviesByIdsQuery(favouriteMoviesIds);
-  console.log(data);
+  const {data: films, isLoading, error} = useGetMoviesByIdsQuery(favouriteMoviesIds);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -22,17 +27,8 @@ const MyListComponent = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  // let favouriteMoviesList = films.slice().filter(movie => favouriteMoviesIds.includes(movie.filmId));
-  let films = data;
-  // const [favoriteMovies, setFavoriteMovies] = useState(favouriteMoviesList);
 
-  // useEffect(() => {
-  //   favouriteMoviesList = data.films;
-  //   setFavoriteMovies(favouriteMoviesList);
-
-  // }, [favouriteFilms])
-
-  const authStatus = localStorage.getItem('authStatus');
+  const authStatus = getAuthStatus();
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -40,9 +36,7 @@ const MyListComponent = () => {
 
         <h1 className="page-title user-page__title">Избранные фильмы</h1>
 
-        <div className="user-block">
-          {user.login}
-        </div>
+        <div className="user-block">{user.login}</div>
       </header>
 
       <section className="catalog">

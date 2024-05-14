@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { AuthorizationStatus } from '../../const';
+import {createSlice} from '@reduxjs/toolkit';
+
+import {AuthorizationStatus} from '../../const';
 const initialState = {
   authStatus: AuthorizationStatus.NO_AUTH,
 };
@@ -18,10 +19,10 @@ const userSlice = createSlice({
     },
     logout(state) {
       state.authStatus = AuthorizationStatus.NO_AUTH;
-      localStorage.removeItem('authStatus'); // Удаляем authStatus из localStorage
+      localStorage.removeItem('authStatus');
     },
   },
 });
 
-export const { setAuthorizationStatus, logout } = userSlice.actions;
+export const {setAuthorizationStatus, logout} = userSlice.actions;
 export default userSlice.reducer;

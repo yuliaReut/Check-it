@@ -1,4 +1,4 @@
-import { AuthorizationStatus } from "../const";
+import {AuthorizationStatus} from '../const';
 
 const authMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
@@ -10,9 +10,7 @@ const authMiddleware = (store) => (next) => (action) => {
 
       break;
     case 'user/logout':
-     
-        alert(`Заходите еще`);
-      
+      alert(`Заходите еще`);
       break;
     default:
       break;

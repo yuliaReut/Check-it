@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from 'react';
 
 const useDebounce = (searchRequest, delay) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   useEffect(() => {
-      const handler = setTimeout(() => setValue(searchRequest), delay);
-      return () => clearTimeout(handler);
+    const handler = setTimeout(() => setValue(searchRequest), delay);
+    return () => clearTimeout(handler);
   }, [delay, searchRequest]);
 
   return value;

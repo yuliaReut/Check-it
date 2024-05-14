@@ -1,8 +1,6 @@
 name: CI/CD
 
-on:
-  [push]
-   
+on: [push]
 
 jobs:
   lint-and-format:
@@ -27,4 +25,3 @@ jobs:
           node-version: '16'
       - run: npm ci
       - run: npm run build
-

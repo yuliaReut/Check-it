@@ -155,7 +155,7 @@ template {
 [hidden] {
   display: none;
 }
-.hidden{
+.hidden {
   display: none;
   width: 0;
   height: 0;
@@ -325,19 +325,10 @@ main {
   font-size: 17px;
   line-height: 20px;
   padding: 13px 30px;
-  -webkit-transition:
-    0.2s background-color,
-    0.2s -webkit-transform;
-  transition:
-    0.2s background-color,
-    0.2s -webkit-transform;
-  transition:
-    0.2s background-color,
-    0.2s transform;
-  transition:
-    0.2s background-color,
-    0.2s transform,
-    0.2s -webkit-transform;
+  -webkit-transition: 0.2s background-color, 0.2s -webkit-transform;
+  transition: 0.2s background-color, 0.2s -webkit-transform;
+  transition: 0.2s background-color, 0.2s transform;
+  transition: 0.2s background-color, 0.2s transform, 0.2s -webkit-transform;
   will-change: transform;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -497,12 +488,8 @@ main {
   justify-content: center;
   font-weight: 700;
   text-decoration: none;
-  -webkit-transition:
-    color 0.2s,
-    border-color 0.2s;
-  transition:
-    color 0.2s,
-    border-color 0.2s;
+  -webkit-transition: color 0.2s, border-color 0.2s;
+  transition: color 0.2s, border-color 0.2s;
 }
 .logo__link[href]:focus,
 .logo__link[href]:hover {
@@ -820,8 +807,6 @@ main {
   color: #382c2a;
 }
 .page-content {
-  
-
   color: #c9b37e;
   padding: 15px;
   padding-bottom: 70px;
@@ -829,12 +814,10 @@ main {
 .page-content-light {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#d1d1d1));
   background-image: linear-gradient(-180deg, #ffffff 0, #d1d1d1 100%);
-  
 }
 .page-content-dark {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#434343), to(#000000));
   background-image: linear-gradient(-180deg, #434343 0, #000000 100%);
-
 }
 .page-header {
   display: -webkit-box;
@@ -977,9 +960,7 @@ main {
   -webkit-transition: 0.2s -webkit-transform;
   transition: 0.2s -webkit-transform;
   transition: 0.2s transform;
-  transition:
-    0.2s transform,
-    0.2s -webkit-transform;
+  transition: 0.2s transform, 0.2s -webkit-transform;
 }
 .player__play img,
 .player__play svg {
@@ -1008,9 +989,7 @@ main {
   -webkit-transition: 0.2s -webkit-transform;
   transition: 0.2s -webkit-transform;
   transition: 0.2s transform;
-  transition:
-    0.2s transform,
-    0.2s -webkit-transform;
+  transition: 0.2s transform, 0.2s -webkit-transform;
 }
 .player__full-screen img,
 .player__full-screen svg {
@@ -1241,9 +1220,7 @@ main {
   -webkit-transition: 0.2s -webkit-transform;
   transition: 0.2s -webkit-transform;
   transition: 0.2s transform;
-  transition:
-    0.2s transform,
-    0.2s -webkit-transform;
+  transition: 0.2s transform, 0.2s -webkit-transform;
 }
 .small-movie-card:hover {
   z-index: 3;
@@ -1299,16 +1276,16 @@ main {
   text-decoration: none;
   color: inherit;
 }
-.search-movie-card-list{
+.search-movie-card-list {
   position: absolute;
   width: 100%;
-left: 0;
-top: 30px;
+  left: 0;
+  top: 30px;
   display: flex;
   flex-direction: column;
-  color: rgba(145, 145, 145,0.5);
-background-color:rgba(145, 145, 145,0.5);
-z-index: 1000;
+  color: rgba(145, 145, 145, 0.5);
+  background-color: rgba(145, 145, 145, 0.5);
+  z-index: 1000;
 }
 .search-movie-card {
   color: white;
@@ -1319,12 +1296,12 @@ z-index: 1000;
 
   color: white;
 }
-.search-movie-card__image img{
+.search-movie-card__image img {
   width: 30px;
   margin-right: 20px;
   object-fit: cover;
 }
-.user-block{
+.user-block {
   position: relative;
 }
 .user-block__avatar {
@@ -1364,10 +1341,10 @@ z-index: 1000;
   border-color: white;
   border-radius: 3px;
   border-style: solid;
-  fill:currentColor ;
+  fill: currentColor;
 }
-.user-block__button:hover{
-  border-color: #FD6D98;
+.user-block__button:hover {
+  border-color: #fd6d98;
 }
 .user-block__link:hover {
   color: #c9b37e;
@@ -1387,14 +1364,14 @@ z-index: 1000;
   -ms-flex-direction: column;
   flex-direction: column;
 }
-.search-form{
-  color:#000;
+.search-form {
+  color: #000;
   background-color: white;
   border-radius: 5px;
   width: max-content;
 }
-.search__button{
-  color:#000;
+.search__button {
+  color: #000;
   background-color: white;
   border-radius: 5px;
 }
@@ -1418,14 +1395,14 @@ z-index: 1000;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-.catalog__movies-search-word{
+.catalog__movies-search-word {
   display: flex;
   margin-bottom: 60px;
   cursor: pointer;
 }
-.catalog__movies-search-word:hover{
+.catalog__movies-search-word:hover {
   display: flex;
   margin-bottom: 60px;
   cursor: pointer;
-  color: #FD6D98;
+  color: #fd6d98;
 }

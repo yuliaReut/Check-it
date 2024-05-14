@@ -4,7 +4,10 @@ env:
   commonjs: true
   jest: true
 
-extends: ['plugin:react/recommended']
+extends:
+  - 'plugin:react/recommended'
+  - 'plugin:import/recommended'
+  - 'plugin:prettier/recommended'
 
 parserOptions:
   ecmaFeatures:
@@ -12,8 +15,30 @@ parserOptions:
   ecmaVersion: 2018
   sourceType: module
 
-plugins: ['react']
+plugins:
+  - react
+  - react-hooks
+  - import
+  - prettier
 
 settings:
   react:
-    version: '16'
+    version: 'detect'
+
+rules:
+  no-console: warn
+  curly: [error, all]
+  import/prefer-default-export: off
+  react/jsx-no-useless-fragment: error
+  no-unused-expressions: error
+  import/order:
+    - error
+    - groups:
+        - builtin
+        - external
+        - internal
+        - parent
+        - sibling
+        - index
+      newlines-between: always
+  prettier/prettier: error

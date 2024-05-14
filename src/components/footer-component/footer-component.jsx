@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+
 import {AppRoute} from '../../const';
+
 const FooterComponent = () => {
   return (
     <footer className="page-footer">

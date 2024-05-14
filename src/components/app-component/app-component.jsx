@@ -1,26 +1,19 @@
-import React, { useEffect } from 'react';
-import { setAuthorizationStatus } from '../../store/user/user-slicer.js';
-import { AuthorizationStatus } from '../../const';
+import React from 'react';
+
+import {useAuthStatus} from '../../hooks/use-auth-status.js';
 import ErrorBoundary from '../error-boundery/error-boundery.jsx';
 import MoviesLoader from '../movies-loader-component/movies-loader-component.jsx';
-import { useDispatch } from 'react-redux';
-import { ThemeProvider } from '../../providers/theme-provider.jsx';
+import {ThemeProvider} from '../../providers/theme-provider.jsx';
 
 const AppComponent = () => {
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const storedAuthStatus = localStorage.getItem('authStatus');
-    dispatch(setAuthorizationStatus(storedAuthStatus ? storedAuthStatus : AuthorizationStatus.NO_AUTH));
-  }, [dispatch]);
+  useAuthStatus();
 
   return (
-    <ErrorBoundary> 
-      <ThemeProvider >
+    <ErrorBoundary>
+      <ThemeProvider>
         <MoviesLoader />
-      </ThemeProvider>     
+      </ThemeProvider>
     </ErrorBoundary>
   );
-
 };
 export default AppComponent;

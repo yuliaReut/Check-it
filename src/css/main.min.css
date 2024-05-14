@@ -316,19 +316,10 @@ main {
   font-size: 17px;
   line-height: 20px;
   padding: 13px 30px;
-  -webkit-transition:
-    0.2s background-color,
-    0.2s -webkit-transform;
-  transition:
-    0.2s background-color,
-    0.2s -webkit-transform;
-  transition:
-    0.2s background-color,
-    0.2s transform;
-  transition:
-    0.2s background-color,
-    0.2s transform,
-    0.2s -webkit-transform;
+  -webkit-transition: 0.2s background-color, 0.2s -webkit-transform;
+  transition: 0.2s background-color, 0.2s -webkit-transform;
+  transition: 0.2s background-color, 0.2s transform;
+  transition: 0.2s background-color, 0.2s transform, 0.2s -webkit-transform;
   will-change: transform;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -428,8 +419,8 @@ main {
 .catalog__movies-list:last-child {
   margin-bottom: 0;
 }
-.search__button{
-  color:#000;
+.search__button {
+  color: #000;
   background-color: white;
   border-radius: 5px;
 }
@@ -489,12 +480,8 @@ main {
   justify-content: center;
   font-weight: 700;
   text-decoration: none;
-  -webkit-transition:
-    color 0.2s,
-    border-color 0.2s;
-  transition:
-    color 0.2s,
-    border-color 0.2s;
+  -webkit-transition: color 0.2s, border-color 0.2s;
+  transition: color 0.2s, border-color 0.2s;
 }
 .logo__link[href]:focus,
 .logo__link[href]:hover {
@@ -956,9 +943,7 @@ main {
   -webkit-transition: 0.2s -webkit-transform;
   transition: 0.2s -webkit-transform;
   transition: 0.2s transform;
-  transition:
-    0.2s transform,
-    0.2s -webkit-transform;
+  transition: 0.2s transform, 0.2s -webkit-transform;
 }
 .player__play img,
 .player__play svg {
@@ -987,9 +972,7 @@ main {
   -webkit-transition: 0.2s -webkit-transform;
   transition: 0.2s -webkit-transform;
   transition: 0.2s transform;
-  transition:
-    0.2s transform,
-    0.2s -webkit-transform;
+  transition: 0.2s transform, 0.2s -webkit-transform;
 }
 .player__full-screen img,
 .player__full-screen svg {
@@ -1220,9 +1203,7 @@ main {
   -webkit-transition: 0.2s -webkit-transform;
   transition: 0.2s -webkit-transform;
   transition: 0.2s transform;
-  transition:
-    0.2s transform,
-    0.2s -webkit-transform;
+  transition: 0.2s transform, 0.2s -webkit-transform;
 }
 .small-movie-card:hover {
   z-index: 3;
