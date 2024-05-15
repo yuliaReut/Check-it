@@ -7,6 +7,7 @@ import FooterComponent from '../footer-component/footer-component.jsx';
 import LogoComponent from '../logo-component/logo-component.jsx';
 import {setAuthorizationStatus} from '../../store/user/user-slicer.js';
 import {AppRoute} from '../../const';
+import {setAuthStatus} from '../../utils/utils.js';
 
 const SighInComponent = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const SighInComponent = () => {
 
     if (loginSuccess) {
       dispatch(setAuthorizationStatus('AUTH'));
+      setAuthStatus('AUTH');
       navigate(AppRoute.ROOT);
     } else {
       alert('Неверный логин или пароль');

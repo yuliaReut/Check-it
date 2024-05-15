@@ -8,7 +8,7 @@ import HeaderComponent from '../header-component/header-component.jsx';
 import {logout} from '../../store/user/user-slicer.js';
 import {ThemeContext} from '../../providers/theme-provider.jsx';
 import useAuth from '../../hooks/use-auth.js';
-
+import {removeAuthStatus} from '../../utils/utils.js';
 const MainComponent = ({movies}) => {
   const {isDarkTheme} = useContext(ThemeContext);
   const film = movies[0];
@@ -19,6 +19,7 @@ const MainComponent = ({movies}) => {
 
   const handleLogout = () => {
     dispatch(logout());
+    removeAuthStatus();
   };
   return (
     <React.Fragment>

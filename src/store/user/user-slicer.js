@@ -1,6 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {setAuthStatus, removeAuthStatus} from '../../utils/utils';
 import {AuthorizationStatus} from '../../const';
 const initialState = {
   authStatus: AuthorizationStatus.NO_AUTH,
@@ -12,15 +11,9 @@ const userSlice = createSlice({
   reducers: {
     setAuthorizationStatus(state, action) {
       state.authStatus = action.payload;
-      if (action.payload) {
-        setAuthStatus(action.payload);
-      } else {
-        removeAuthStatus();
-      }
     },
     logout(state) {
       state.authStatus = AuthorizationStatus.NO_AUTH;
-      removeAuthStatus();
     },
   },
 });

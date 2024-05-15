@@ -16,7 +16,12 @@ import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import HeaderComponent from '../header-component/header-component.jsx';
 import {setAuthorizationStatus, logout} from '../../store/user/user-slicer.js';
 import {ThemeContext} from '../../providers/theme-provider.jsx';
-import {getAuthStatus, getFavouriteMoviesIds} from '../../utils/utils.js';
+import {
+  getAuthStatus,
+  getFavouriteMoviesIds,
+  setAuthStatus,
+  removeAuthStatus,
+} from '../../utils/utils.js';
 import {getFavouriteFilmsSelector, getAuthStatusSelector} from '../../selectors/selectors.js';
 
 const FilmComponent = ({films}) => {
@@ -36,6 +41,7 @@ const FilmComponent = ({films}) => {
     dispatch(
       setAuthorizationStatus(storedAuthStatus ? storedAuthStatus : AuthorizationStatus.NO_AUTH),
     );
+    setAuthStatus(storedAuthStatus);
   }, [dispatch]);
   useEffect(() => {
     setFavouriteFilms(favouriteMovies);
@@ -52,6 +58,7 @@ const FilmComponent = ({films}) => {
 
   const handleLogout = () => {
     dispatch(logout());
+    removeAuthStatus();
   };
   return (
     <React.Fragment>

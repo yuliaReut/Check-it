@@ -1,6 +1,7 @@
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 
+import {setAuthStatus} from '../utils/utils.js';
 import {setAuthorizationStatus} from '../store/user/user-slicer.js';
 import {AuthorizationStatus} from '../const.js';
 
@@ -15,5 +16,6 @@ export const useAuthStatus = () => {
   useEffect(() => {
     const storedAuthStatus = getStoredAuthStatus();
     dispatch(setAuthorizationStatus(storedAuthStatus));
+    setAuthStatus(storedAuthStatus);
   }, [dispatch]);
 };

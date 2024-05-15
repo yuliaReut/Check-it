@@ -13,7 +13,7 @@ const FilmsList = ({films, isAuthenticated}) => {
             const filmId = filmCard.filmId || filmCard.kinopoiskId;
             return <CardComponent key={filmId} film={filmCard} isAuthenticated={isAuthenticated} />;
           })
-        : 'Добавьте что-нибудь'}
+        : ''}
     </div>
   );
 };

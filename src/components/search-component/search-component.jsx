@@ -1,13 +1,22 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate, useLocation, Link} from 'react-router-dom';
+import queryString from 'query-string';
 
 import useDebounce from '../../hooks/use-debounce.js';
 import {AuthorizationStatus, AppRoute} from '../../const';
 // eslint-disable-next-line import/namespace
 import {useGetSearchingMoviesQuery} from '../../api/kinopoisk-api.js';
-import {getSearchHistory, setSearchHistoryItem, getAuthStatus} from '../../utils/utils.js';
+import {
+  getSearchHistory,
+  getCurrentUser,
+  setSearchHistoryItem,
+  getAuthStatus,
+} from '../../utils/utils.js';
 const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+
+  const [searchQuery, setSearchQuery] = useState(queryParams.q || '');
   const debouncedSearchTerm = useDebounce(searchQuery, 500);
   const {data, isLoading, error} = useGetSearchingMoviesQuery(debouncedSearchTerm);
   const navigate = useNavigate();
@@ -36,6 +45,25 @@ const SearchBar = () => {
   const handleInputFocus = () => {
     setShowMovieCardList(true);
   };
+  useEffect(() => {
+    const handleClick = (event) => {
+      if (
+        document.querySelector('.user-block') &&
+        document.querySelector('.user-block').contains(event.target)
+      ) {
+        setShowMovieCardList(true);
+      } else {
+        setShowMovieCardList(false);
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
+
   return (
     <div className="user-block">
       <input

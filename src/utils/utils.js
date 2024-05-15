@@ -12,8 +12,13 @@ export const getAuthStatus = () => {
   return localStorage.getItem('authStatus');
 };
 
-export const setAuthStatus = (payload) => {
-  return localStorage.setItem('authStatus', payload);
+export const setAuthStatus = (status) => {
+  if (status) {
+    localStorage.setItem('authStatus', status);
+  } else {
+    localStorage.removeItem('authStatus');
+    localStorage.removeItem('currentUser');
+  }
 };
 
 export const removeAuthStatus = () => {
