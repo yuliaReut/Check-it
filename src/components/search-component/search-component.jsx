@@ -6,12 +6,7 @@ import useDebounce from '../../hooks/use-debounce.js';
 import {AuthorizationStatus, AppRoute} from '../../const';
 // eslint-disable-next-line import/namespace
 import {useGetSearchingMoviesQuery} from '../../api/kinopoisk-api.js';
-import {
-  getSearchHistory,
-  getCurrentUser,
-  setSearchHistoryItem,
-  getAuthStatus,
-} from '../../utils/utils.js';
+import {getSearchHistory, setSearchHistoryItem, getAuthStatus} from '../../utils/utils.js';
 const SearchBar = () => {
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
