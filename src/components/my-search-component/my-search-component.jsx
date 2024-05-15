@@ -5,34 +5,23 @@ import queryString from 'query-string';
 import {useLocation} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
+import {AuthorizationStatus} from '../../const.js';
 import FilmProp from '../../props/film.prop';
 import SearchPanel from '../search-component/search-component.jsx';
 import LogoComponent from '../logo-component/logo-component.jsx';
 import FooterComponent from '../footer-component/footer-component.jsx';
 import FilmsList from '../films-list-component/films-list-component.jsx';
 import {useGetSearchingMoviesQuery} from '../../api/kinopoisk-api.js';
-import {getCurrentUser, getAuthStatus, getFavouriteMoviesIds} from '../../utils/utils.js';
-import {getFavouriteFilmsSelector, getAuthStatusSelector} from '../../selectors/selectors.js';
-const SearchComponent = ({films}) => {
-  const isAuthenticated = useSelector(getAuthStatusSelector) || [];
-  const favouriteFilms = useSelector(getFavouriteFilmsSelector) || [];
-  const user = getCurrentUser();
-  let favouriteMoviesIds = getFavouriteMoviesIds();
+import {getCurrentUser, getAuthStatus} from '../../utils/utils.js';
 
-  let favouriteMoviesList = films
-    .slice()
-    .filter((movie) => favouriteMoviesIds.includes(movie.filmId));
-  const [favoriteMovies, setFavoriteMovies] = useState(favouriteMoviesList);
+const SearchComponent = ({films}) => {
+  const user = getCurrentUser();
+
   const location = useLocation();
   let queryParams = queryString.parse(location.search);
   let searchQuery = queryParams.q || '';
   const [searchTerm, setSearchTerm] = useState(searchQuery);
-  useEffect(() => {
-    favouriteMoviesList = films
-      .slice()
-      .filter((movie) => favouriteMoviesIds.includes(movie.filmId));
-    setFavoriteMovies(favouriteMoviesList);
-  }, [favouriteFilms]);
+
   useEffect(() => {
     queryParams = queryString.parse(location.search);
     searchQuery = queryParams.q || '';
@@ -48,14 +37,14 @@ const SearchComponent = ({films}) => {
     return <div>Error: {error.message}</div>;
   }
 
-  const authStatus = getAuthStatus();
+  const authStatus = getAuthStatus() ? getAuthStatus() : AuthorizationStatus.NO_AUTH;
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <LogoComponent></LogoComponent>
-        <SearchPanel isAuthenticated={isAuthenticated}></SearchPanel>
+        <SearchPanel></SearchPanel>
 
-        <div className="user-block">{user.login}</div>
+        <div className="user-block">{user ? user.login : ''}</div>
       </header>
 
       <section className="catalog">

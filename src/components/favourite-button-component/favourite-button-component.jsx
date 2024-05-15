@@ -1,24 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {useDispatch} from 'react-redux';
 
 import {setFavouriteFilms} from '../../store/films/films-slicer';
-import {getCurrentUser, setfavouriteMovies, getFavouriteMoviesIds} from '../../utils/utils.js';
+import {getFavouriteMoviesIds, setfavouriteMovies} from '../../utils/utils.js';
 const FavouriteButtonComponent = ({filmId}) => {
-  const currentUser = getCurrentUser();
-  const [isAdded, setIsAdded] = useState(false);
+  let favouriteMovies = getFavouriteMoviesIds() || [];
+  const [isAdded, setIsAdded] = useState(favouriteMovies.includes(filmId));
   const dispatch = useDispatch();
-  let favouriteMovies;
-  useEffect(() => {
-    if (currentUser) {
-      favouriteMovies = getFavouriteMoviesIds();
-      setIsAdded(favouriteMovies.includes(filmId));
-    }
-  }, [filmId, currentUser]);
-
   const handleOnClick = () => {
-    favouriteMovies = getFavouriteMoviesIds();
-
+    favouriteMovies = getFavouriteMoviesIds() || [];
     if (favouriteMovies.includes(filmId)) {
       favouriteMovies = favouriteMovies.filter((movieId) => movieId !== filmId);
       setfavouriteMovies(favouriteMovies);

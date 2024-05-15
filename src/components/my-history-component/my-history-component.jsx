@@ -1,31 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
-import {useSelector} from 'react-redux';
 
 import FilmProp from '../../props/film.prop.js';
 import LogoComponent from '../logo-component/logo-component.jsx';
 import FooterComponent from '../footer-component/footer-component.jsx';
-import {getCurrentUser, getFavouriteMoviesIds, getSearchHistory} from '../../utils/utils.js';
-import {getFavouriteFilmsSelector} from '../../selectors/selectors.js';
+import {getCurrentUser, getSearchHistory} from '../../utils/utils.js';
+
 const HistoryComponent = ({films}) => {
   const navigate = useNavigate();
-  const favouriteFilms = useSelector(getFavouriteFilmsSelector) || [];
   const currentUser = getCurrentUser();
-  let favouriteMoviesIds = getFavouriteMoviesIds();
-
-  let favouriteMoviesList = films
-    .slice()
-    .filter((movie) => favouriteMoviesIds.includes(movie.filmId));
-  const [favoriteMovies, setFavoriteMovies] = useState(favouriteMoviesList);
-
-  useEffect(() => {
-    favouriteMoviesList = films
-      .slice()
-      .filter((movie) => favouriteMoviesIds.includes(movie.filmId));
-    setFavoriteMovies(favouriteMoviesList);
-  }, [favouriteFilms]);
-
   const searchHistory = getSearchHistory();
 
   const handleHistoryClick = (searchTerm) => {

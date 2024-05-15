@@ -13,7 +13,7 @@ const HeaderComponent = ({isAuthenticated, onExit}) => {
     <header className="page-header user-page__head">
       <LogoComponent></LogoComponent>
       <ThemeComponent></ThemeComponent>
-      <SearchPanel isAuthenticated={isAuthenticated}></SearchPanel>
+      <SearchPanel></SearchPanel>
       <div className="user-block">
         {isAuthenticated === AuthorizationStatus.AUTH ? (
           <HeadUserComponent onExit={onExit} />

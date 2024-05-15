@@ -18,6 +18,7 @@ import {setAuthorizationStatus, logout} from '../../store/user/user-slicer.js';
 import {ThemeContext} from '../../providers/theme-provider.jsx';
 import {getAuthStatus, getFavouriteMoviesIds} from '../../utils/utils.js';
 import {getFavouriteFilmsSelector, getAuthStatusSelector} from '../../selectors/selectors.js';
+
 const FilmComponent = ({films}) => {
   const id = Number(useParams().id);
   const {isDarkTheme} = useContext(ThemeContext);
@@ -26,8 +27,10 @@ const FilmComponent = ({films}) => {
   const authStatus = useSelector(getAuthStatusSelector);
   const [isAdded, setIsAdded] = useState(favouriteFilms.includes(id));
   const {data: film, error, isLoading} = useGetMovieDetailsQuery(id);
-  const favouriteMovies = getFavouriteMoviesIds();
-
+  let favouriteMovies;
+  if (getAuthStatus() === AuthorizationStatus.AUTH) {
+    favouriteMovies = getFavouriteMoviesIds();
+  }
   useEffect(() => {
     const storedAuthStatus = getAuthStatus();
     dispatch(

@@ -38,16 +38,13 @@ const MoviesLoader = () => {
           <Route element={<PrivateRoute />}>
             <Route path={AppRoute.ROOT + 'history'} element={<HistoryPage films={films} />} />
           </Route>
-          <Route element={<PrivateRoute />}>
-            <Route
-              path={AppRoute.ROOT + `search/:search?`}
-              element={<SearchPage films={films} />}
-            />
-          </Route>
+
+          <Route path={AppRoute.ROOT + `search/:search?`} element={<SearchPage films={films} />} />
+
           <Route path={AppRoute.ROOT + `films/:id?`} element={<FilmPage films={films} />} />
           <Route path={AppRoute.ROOT + `signin`} element={<SignInPage />} />
           <Route path={AppRoute.ROOT + `signup`} element={<SignUpPage />} />
-          <Route path="*" element={<Page404 />} />
+          {/* <Route path="*" element={<Page404 />} /> */}
         </Routes>
       </Suspense>
     );

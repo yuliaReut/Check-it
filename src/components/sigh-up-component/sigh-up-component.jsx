@@ -24,7 +24,6 @@ const SignUpComponent = () => {
       setMessage(`Юзер с логином ${newUser.login} уже существует.`);
     } else {
       registerUser(newUser);
-      alert(`Юзер с логином ${newUser.login} успешно зарегистрирован.`);
       navigate(AppRoute.ROOT);
     }
   };

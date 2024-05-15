@@ -19,7 +19,12 @@ const MyListComponent = () => {
     setFavoriteFilms(favouriteFilms);
   }, [favouriteMoviesIds]);
 
-  const {data: films, isLoading, error} = useGetMoviesByIdsQuery(favouriteMoviesIds);
+  const {
+    data: films,
+    isLoading,
+    error,
+  } = useGetMoviesByIdsQuery(favouriteMoviesIds ? favouriteMoviesIds : []);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -43,7 +48,7 @@ const MyListComponent = () => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__movies-list">
-          <FilmsList films={films} isAuthenticated={authStatus}></FilmsList>
+          <FilmsList films={films ? films : []} isAuthenticated={authStatus}></FilmsList>
         </div>
       </section>
       <FooterComponent></FooterComponent>

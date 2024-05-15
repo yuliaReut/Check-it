@@ -5,6 +5,7 @@ setup-tests.js
 vite.config.js
 build
 src/components/movies-loader-component/movies-loader-component.jsx
+src/middlewares/auth-middleware.js
 .github/pull_request_template.md
 vscode/extensions.json
 ss/main.css

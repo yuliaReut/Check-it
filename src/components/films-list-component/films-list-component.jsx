@@ -8,10 +8,12 @@ const FilmsList = ({films, isAuthenticated}) => {
   const trimmedFilms = films.slice();
   return (
     <div className="catalog__movies-list">
-      {trimmedFilms.map((filmCard) => {
-        const filmId = filmCard.filmId || filmCard.kinopoiskId;
-        return <CardComponent key={filmId} film={filmCard} isAuthenticated={isAuthenticated} />;
-      })}
+      {trimmedFilms.length > 0
+        ? trimmedFilms.map((filmCard) => {
+            const filmId = filmCard.filmId || filmCard.kinopoiskId;
+            return <CardComponent key={filmId} film={filmCard} isAuthenticated={isAuthenticated} />;
+          })
+        : 'Добавьте что-нибудь'}
     </div>
   );
 };

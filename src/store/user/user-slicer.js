@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
+import {setAuthStatus, removeAuthStatus} from '../../utils/utils';
 import {AuthorizationStatus} from '../../const';
 const initialState = {
   authStatus: AuthorizationStatus.NO_AUTH,
@@ -12,14 +13,14 @@ const userSlice = createSlice({
     setAuthorizationStatus(state, action) {
       state.authStatus = action.payload;
       if (action.payload) {
-        localStorage.setItem('authStatus', action.payload);
+        setAuthStatus(action.payload);
       } else {
-        localStorage.removeItem('authStatus');
+        removeAuthStatus();
       }
     },
     logout(state) {
       state.authStatus = AuthorizationStatus.NO_AUTH;
-      localStorage.removeItem('authStatus');
+      removeAuthStatus();
     },
   },
 });
